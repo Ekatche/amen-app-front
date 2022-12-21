@@ -1,10 +1,12 @@
-import { Route, Navigate } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
 import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
 
-const PrivateBackofficeRoute = ({ children, ...rest }) => {
-    let { user } = useContext(AuthContext);
-    return <Route {...rest}>{!user ? <Navigate to="/admin/login" /> : children}</Route>;
-  };
-  
-export default PrivateBackofficeRoute;
+const PrivateBackofficeRoutes = () => {
+  let { user } = useContext(AuthContext);
+  return (
+    user ? <Outlet /> : <Navigate to="admin/login"/>
+  )
+}
+
+export default PrivateBackofficeRoutes;

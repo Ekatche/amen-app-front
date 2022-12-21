@@ -39,8 +39,8 @@ function NavBar(args) {
                                     </NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink onClick={logoutUser}>
-                                        LogOut
+                                    <NavLink href = "#" onClick={logoutUser}>
+                                        logout
                                     </NavLink>
                                 </NavItem>
                             </Nav>
@@ -60,11 +60,6 @@ function NavBar(args) {
                                 <NavItem>
                                     <NavLink href="/login/">
                                         Login
-                                    </NavLink>
-                                </NavItem>
-                                <NavItem>
-                                    <NavLink href="/admin/login">
-                                        Admin Panel
                                     </NavLink>
                                 </NavItem>
                             </Nav>

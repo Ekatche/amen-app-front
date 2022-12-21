@@ -8,13 +8,13 @@ const AdminLoginPage = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("");
 
-    const { loginUser } = useContext(AuthContext)
+    const { loginAdminUser } = useContext(AuthContext)
     const handleSubmit = async e => {
         e.preventDefault();
         try {
 
             console.log("button cliked");
-            loginUser(email, password);
+            loginAdminUser(email, password);
 
         } catch (error) {
             alert(error)

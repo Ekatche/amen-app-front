@@ -1,0 +1,21 @@
+
+/* title header  */
+
+.page-title {
+    text-align: center;
+    margin-bottom: 5%;
+}
+
+/* button */
+
+.button {
+    margin: 0.5rem;
+}
+
+/* Table Layout */
+
+.table-layout {
+    margin: 0 auto;
+    text-align: center;
+    margin: 5% 10%;
+}
