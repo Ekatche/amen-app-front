@@ -7,7 +7,7 @@ const initalDetails = {
     name: "",
     category: "",
 };
-function ViewCategory() {
+function ViewSubCategory() {
     const API = useAxios();
     const [data, setData] = useState(initalDetails);
     const navigate = useNavigate();
@@ -27,7 +27,7 @@ function ViewCategory() {
 
     useEffect(() => {
         const getCat = async () => {
-            await API.get(`/backoffice/categories/${id}/`)
+            await API.get(`/backoffice/subcategories/${id}/`)
                 .then((response) => {
                     setData(response.data)
                     console.log(response.data)
@@ -50,7 +50,7 @@ function ViewCategory() {
         console.log(data);
         try {
             await API.patch(
-                `/backoffice/categories/${id}/`, data
+                `/backoffice/subcategories/${id}/`, data
             )
                 .then(res => {
                     if (res.status === 200) {
@@ -66,49 +66,41 @@ function ViewCategory() {
     return (
         <section>
             <div>
-                <h2 className="formTitle"> Complete this form to Update category</h2>
+                <h2 className="formTitle"> Complete this form to Update Subcategory</h2>
             </div>
             <div className="addForm">
                 <Form onSubmit={handleSubmit}>
-                    <Label className="formlabel">Category Name</Label>
+                    <Label className="formlabel required">SubCategory Name</Label>
                     <FormGroup>
                         <Input
                             name="name"
                             className="formInput"
                             value={data.name}
-                            placeholder="category Name"
+                            placeholder="subcategory Name"
                             onChange={handleChange}
                         />
-                        <Label className="formLabel">Category Slug</Label>
+                        <Label className="formLabel">SubCategory Category </Label>
                         <Input
                             name="slug"
                             className="formInput"
-                            value={data.slug}
-                            placeholder="Category slug"
+                            value={data.category.name}
+                            placeholder="subcategory category"
                             onChange={handleChange}
                         />
-                        <Label className="formLabel">Category status</Label>
-                        <Input
-                            name="status"
-                            className="formInput"
-                            value={data.is_active}
-                            placeholder="Category status"
-                            onChange={handleChange}
-                        />
-
+                        
                         <div className="formButton">
                             <Button
                                 color="success"
                                 outline
                                 type="submit"
                                 style={{ "textAlign": "center", "marginRight": "0.5rem" }}>
-                                Update Category
+                                Update Subcategory
                             </Button>
                             <Button
                                 color="danger"
                                 outline
-                                onClick={() => navigate("../categories")}>
-                                Back to Category
+                                onClick={() => navigate("../subcategories")}>
+                                Back to subcategories
                             </Button>
                         </div>
                     </FormGroup>
@@ -117,4 +109,4 @@ function ViewCategory() {
         </section>
     )
 }
-export default ViewCategory;
+export default ViewSubCategory;

@@ -1,8 +1,6 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect} from "react";
 import { Button, Table } from "reactstrap";
 import useAxios from "../../../utils/useAxios";
-import AuthContext from "../../../context/AuthContext";
-import { useNavigate, NavLink } from "react-router-dom";
 import { AiFillDelete } from "react-icons/ai";
 import { RxUpdate } from 'react-icons/rx';
 import { GrAddCircle } from 'react-icons/gr';
@@ -11,16 +9,14 @@ import { GrAddCircle } from 'react-icons/gr';
 
 function AllProducts() {
     const [data, setData] = useState([]);
-    const { loading } = useContext(AuthContext)
-    let navigate = useNavigate()
     const API = useAxios()
 
     useEffect(() => {
         try {
             API.get('/backoffice/product/')
                 .then((response) => {
-                    setData(response.data.results)
-                    console.log(response.data.results)
+                    setData(response.data.results);
+                    console.log(response.data.results);
                 })
         } catch (error) {
             console.log(error);
@@ -34,6 +30,7 @@ function AllProducts() {
             <div>
                 <h1 className="page-title">All Products</h1>
             </div>
+            <div className="container">
             <Table>
                 <thead>
                     <tr>
@@ -80,6 +77,7 @@ function AllProducts() {
                     }
                 </tbody>
             </Table>
+            </div>
             <Button
                 color="success"
                 outline

@@ -5,7 +5,6 @@ import AuthContext from "../../context/AuthContext";
 const Home = () => {
     const { user } = useContext(AuthContext)
     return (
-        <>
             <section>
                 <div>
                 {user ? <UserInfo user={user} /> : null }
@@ -13,7 +12,6 @@ const Home = () => {
                 </div>
             </section>
 
-        </>
     )
 }
 

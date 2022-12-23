@@ -120,7 +120,7 @@ export const AuthProvider = ({ children }) => {
         const response = await fetch('http://localhost:8000/api/user/logout/', {
             method: "Post",
             headers: {
-                "Authorization": `Bearer ${authTokens}`,
+                "Authorization": `Bearer ${refresh}`,
                 "Content-Type": "application/json"
             },
         })
@@ -143,9 +143,10 @@ export const AuthProvider = ({ children }) => {
         const response = await fetch('http://localhost:8000/api/user/backoffice/logout/', {
             method: "Post",
             headers: {
-                "Authorization": `Bearer ${authTokens}`,
+                "Authorization": `Bearer  ${authTokens}`,
                 "Content-Type": "application/json"
             },
+            body: JSON.stringify({ refresh: `${refresh}` })
         })
 
         if (response.status === 200) {

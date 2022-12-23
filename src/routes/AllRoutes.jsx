@@ -23,7 +23,7 @@ export default function AllRoutes() {
                     }
                 />
                 <Route
-                    path="/login"
+                    path="login"
                     element={
                         <>
                             <NavBar />
@@ -33,7 +33,7 @@ export default function AllRoutes() {
                     }
                 />
                 <Route
-                    path="/register"
+                    path="register"
                     element=
                     {<>
                         <NavBar />
@@ -43,7 +43,7 @@ export default function AllRoutes() {
                 />
                 {/* Admin page  */}
                 <Route
-                    path="/admin/login"
+                    path="admin/login"
                     element={
                         <>
                             <AdminLoginPage />
@@ -52,7 +52,7 @@ export default function AllRoutes() {
                 />
                 <Route element={<PrivateBackofficeRoutes />}>
                     <Route
-                        path="/admin/*"
+                        path="admin/*"
                         element={
                             <>
                                 <AdminRoutes />

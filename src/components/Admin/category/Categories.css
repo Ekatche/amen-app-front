@@ -8,14 +8,38 @@
 
 /* button */
 
-.button {
+.table-button {
     margin: 0.5rem;
 }
-
+.addButton {
+    margin: 0 0.5rem 0.2rem 0 ;
+}
 /* Table Layout */
 
 .table-layout {
     margin: 0 auto;
     text-align: center;
     margin: 5% 10%;
+}
+
+/* form */
+
+.formTitle{
+    text-align: center;
+    position: relative;
+}
+.addForm {
+    margin: 5% 20% 0 20% ;
+}
+
+.formLabel {
+    margin: 0.5rem;
+}
+
+.formInput {
+    margin-bottom: 0.5rem;
+}
+
+.formButton {
+    text-align: center;
 }

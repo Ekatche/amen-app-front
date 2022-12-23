@@ -33,51 +33,53 @@ export default function AllCoupons() {
             <div>
                 <h1 className="page-title">All Coupons</h1>
             </div>
-            <Table>
-                <thead>
-                    <tr>
-                        <th>id</th>
-                        <th>name</th>
-                        <th>code</th>
-                        <th>Discount</th>
-                        <th>is active</th>
-                        <th> Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        data.map((e) => (
-                            <tr key={e.id}>
-                                <td>{e.id}</td>
-                                <td>{e.name}</td>
-                                <td>{e.code}</td>
-                                <td>{e.discount}</td>
-                                <td>{e.is_active ? "Yes" : "No"}</td>
-                                <td>
-                                    <Button
-                                        className="button"
-                                        color="danger"
-                                        outline
-                                        size="sm"> <AiFillDelete /> Delete </Button>
-                                    <Button
-                                        color="primary"
-                                        className="button"
-                                        outline
-                                        size="sm"
-                                    > <RxUpdate /> Update </Button>
-                                </td>
-                            </tr>
-                        ))
-                    }
-                </tbody>
-            </Table>
+            <div className="container">
+                <Table>
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>name</th>
+                            <th>code</th>
+                            <th>Discount</th>
+                            <th>is active</th>
+                            <th> Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            data.map((e) => (
+                                <tr key={e.id}>
+                                    <td>{e.id}</td>
+                                    <td>{e.name}</td>
+                                    <td>{e.code}</td>
+                                    <td>{e.discount}</td>
+                                    <td>{e.is_active ? "Yes" : "No"}</td>
+                                    <td>
+                                        <Button
+                                            className="button"
+                                            color="danger"
+                                            outline
+                                            size="sm"> <AiFillDelete /> Delete </Button>
+                                        <Button
+                                            color="primary"
+                                            className="button"
+                                            outline
+                                            size="sm"
+                                        > <RxUpdate /> Update </Button>
+                                    </td>
+                                </tr>
+                            ))
+                        }
+                    </tbody>
+                </Table>
+            </div>
             <Button
-                    color="success"
-                    outline
-                >
-                    <GrAddCircle />
-                    Add New Coupon
-                </Button>
+                color="success"
+                outline
+            >
+                <GrAddCircle />
+                Add New Coupon
+            </Button>
         </div>
     )
 };

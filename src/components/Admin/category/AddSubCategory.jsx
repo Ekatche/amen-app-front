@@ -5,10 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { BsFillCheckCircleFill } from "react-icons/bs"
 const initalDetails = {
     name: "",
-    slug: "",
+    category: "",
 };
 
-function AddCategory() {
+function AddSubCategory() {
     const api = useAxios();
     const [form, setForm] = useState(initalDetails);
     let navigate = useNavigate();
@@ -50,25 +50,25 @@ function AddCategory() {
     return (
         <section>
             <div>
-                <h2 className="formTitle"> Complete this form to add a new category</h2>
+                <h2 className="formTitle"> Complete this form to add a new Sub category</h2>
             </div>
             <div className="addForm container">
                 <Form onSubmit={handleSubmit}>
-                    <Label className="formlabel">Category Name</Label>
+                    <Label className="formlabel">SubCategory Name</Label>
                     <FormGroup>
                         <Input
                             name="name"
                             className="formInput"
                             value={form.name}
-                            placeholder="category Name"
+                            placeholder="Subcategory Name"
                             onChange={handleChange}
                         />
-                        <Label className="formLabel">Category Slug </Label>
+                        <Label className="formLabel">SubCategory Category </Label>
                         <Input
                             name="slug"
                             className="formInput"
-                            value={form.slug}
-                            placeholder="Category slug"
+                            value={form.category}
+                            placeholder="Subcategory Category"
                             onChange={handleChange}
                         />
                         <div className="formButton">
@@ -82,7 +82,7 @@ function AddCategory() {
                             <Button
                                 color="danger"
                                 outline
-                                onClick={() => navigate("../categories")}>
+                                onClick={() => navigate("../subcategories")}>
                                 Back to Category
                             </Button>
                         </div>
@@ -93,4 +93,4 @@ function AddCategory() {
         </section>
     )
 }
-export default AddCategory;
+export default AddSubCategory;
