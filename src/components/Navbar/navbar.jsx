@@ -22,7 +22,7 @@ function NavBar(args) {
         <div>
             <Navbar>
                 <NavbarBrand href="/">Amen Cosmetics</NavbarBrand>
-                <NavbarToggler onClick={toggle} />
+                <NavbarToggler onClick={toggle} className="me-2"/>
                 <Collapse isOpen={isOpen} navbar>
 
                     {user ?

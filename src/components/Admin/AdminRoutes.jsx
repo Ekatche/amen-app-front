@@ -12,6 +12,8 @@ import AllPromotion from "./products/Allpromotions";
 import ViewCategory from "./category/ViewCategory";
 import ViewSubCategory from "./category/ViewSubcategory";
 import AddSubCategory from "./category/AddSubCategory";
+import ViewProduct from "./products/Viewproduct";
+import AddProduct from "./products/Addproduct";
 
 function AdminRoutes() {
     return (
@@ -83,7 +85,7 @@ function AdminRoutes() {
                     element={
                         <>
                             <AdminNavBar />
-                            <AllProducts />
+                            <AddProduct />
                         </>
 
                     }
@@ -93,7 +95,7 @@ function AdminRoutes() {
                     element={
                         <>
                             <AdminNavBar />
-                            <AllProducts />
+                            <ViewProduct />
                         </>
 
                     }

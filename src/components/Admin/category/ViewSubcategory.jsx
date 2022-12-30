@@ -10,6 +10,7 @@ const initalDetails = {
 function ViewSubCategory() {
     const API = useAxios();
     const [data, setData] = useState(initalDetails);
+    const [categories, setCategories] = useState([])
     const navigate = useNavigate();
     let { id } = useParams();
 
@@ -34,6 +35,13 @@ function ViewSubCategory() {
                 }).catch((error) => {
                     console.log(error);
                 })
+            await API.get('/backoffice/categories/')
+                .then((response) => {
+                    let resp_data = response.data.results
+                    setCategories(resp_data);
+                }).catch((error) => {
+                    console.log(error);
+                })
         };
 
         getCat();
@@ -55,7 +63,7 @@ function ViewSubCategory() {
                 .then(res => {
                     if (res.status === 200) {
                         alert("updated category successfully")
-                        navigate("../")
+                        navigate("../subcategories")
                     }
                 });
         } catch (error) {
@@ -81,13 +89,24 @@ function ViewSubCategory() {
                         />
                         <Label className="formLabel">SubCategory Category </Label>
                         <Input
-                            name="slug"
+                            name="category"
                             className="formInput"
-                            value={data.category.name}
+                            value={data.category}
                             placeholder="subcategory category"
                             onChange={handleChange}
-                        />
-                        
+                            type="select"
+                        >
+                            {
+                                categories.map((cat) => (
+                                    <option key={cat.id}
+                                        value={cat.id}
+                                        name="category.name">
+                                        {cat.name}
+                                    </option>
+                                ))
+                            }
+                        </Input>
+
                         <div className="formButton">
                             <Button
                                 color="success"

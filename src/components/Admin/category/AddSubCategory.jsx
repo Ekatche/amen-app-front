@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Form, FormGroup, Label, Button, Input, Alert } from "reactstrap";
 import useAxios from "../../../utils/useAxios";
 import { useNavigate } from "react-router-dom";
@@ -11,7 +11,29 @@ const initalDetails = {
 function AddSubCategory() {
     const api = useAxios();
     const [form, setForm] = useState(initalDetails);
+    const [categories, setCategories] = useState([])
     let navigate = useNavigate();
+
+    useEffect(() => {
+        const getCat = async () => {
+            await api.get('/backoffice/categories/')
+                .then((response) => {
+                    let resp_data = response.data.results
+                    setCategories(resp_data);
+                }).catch((error) => {
+                    console.log(error);
+                })
+        };
+
+        getCat();
+
+        return () => {
+            // this now gets called when the component unmounts
+            console.log(" cat data fetched");
+        };
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     function handleChange(e) {
         const { name, value } = e.target;
@@ -28,7 +50,7 @@ function AddSubCategory() {
         console.log(form);
         try {
             await api.post(
-                '/backoffice/categories/', form
+                '/backoffice/subcategories/', form
             )
                 .then(res => {
                     if (res.status === 201) {
@@ -36,7 +58,7 @@ function AddSubCategory() {
                             (
                                 <Alert status='success'>
                                     <BsFillCheckCircleFill />
-                                    The Category was added successfully
+                                    The subcategory was added successfully
                                 </Alert>
                             )
                         setForm(initalDetails)
@@ -45,6 +67,7 @@ function AddSubCategory() {
         } catch (error) {
             console.log(error)
         };
+
     };
 
     return (
@@ -65,25 +88,36 @@ function AddSubCategory() {
                         />
                         <Label className="formLabel">SubCategory Category </Label>
                         <Input
-                            name="slug"
+                            name="category"
                             className="formInput"
                             value={form.category}
-                            placeholder="Subcategory Category"
                             onChange={handleChange}
-                        />
+                            type="select"
+                        >
+                        <option> Select a category </option>
+                            {
+                                categories.map((cat) => (
+                                    <option key={cat.id}
+                                        value={cat.id}
+                                        name="category.name">
+                                        {cat.name}
+                                    </option>
+                                ))
+                            }
+                        </Input>
                         <div className="formButton">
                             <Button
                                 color="success"
                                 outline
                                 type="submit"
-                                style={{ "textAlign": "center", "marginRight":"0.5rem" }}>
-                                Add Category
+                                style={{ "textAlign": "center", "marginRight": "0.5rem" }}>
+                                Add Subcategory
                             </Button>
                             <Button
                                 color="danger"
                                 outline
                                 onClick={() => navigate("../subcategories")}>
-                                Back to Category
+                                Back to Subcategory
                             </Button>
                         </div>
 

@@ -4,42 +4,42 @@ import { useNavigate, useParams } from "react-router-dom";
 import useAxios from "../../../utils/useAxios";
 
 const initalDetails = {
-    "name": "",
-    "price": "",
-    "slug": "",
+    "id": 0,
+    "name": "string",
+    "price": "-293",
+    "slug": "0gGcA8PctoGMNio7MtAWWzE2LdHrr_lnpGs_2Be4TAMjkF",
+    "images": [
+        0
+    ],
     "inventory": 0,
     "categories": [
         0
     ],
     "subcategory": 0,
-    "description": "",
+    "description": "string",
     "is_available": true,
-    "on_promo": false,
-    "promotion": null
+    "on_promo": true,
+    "promotion": "string",
+    "promo_price": "string"
 }
 
-const initalDetailsInventory = {
-    "quantity_sold": 0,
-    "total": ""
-}
 
-const initalDetailsImage = [{
-    "image": "",
-    "is_feature": false
-}]
 
-export default function AddProduct() {
+function ViewProduct() {
     const API = useAxios();
     const [data, setData] = useState(initalDetails);
-    const [categories, setCategories] = useState([]);
-    const [subcategories, setSubcategories] = useState([]);
-    const [promotions, setPromotions] = useState([]);
-    const [images, setImages] = useState(initalDetailsImage);
-    const [inventory, setInventory] = useState(initalDetailsInventory);
+    const [categories, setCategories] = useState([])
+    const [subcategories, setSubcategories] = useState([])
+    const [promotions, setPromotions] = useState([])
+    const [inventory, setInventory] = useState([])
+    const [images, setImages] = useState([])
     const navigate = useNavigate();
+    let { id } = useParams();
+
+    // fetch data 
 
     useEffect(() => {
-        const getData = async () => {
+        const getProduct = async () => {
             await API.get('/backoffice/categories/')
                 .then((response) => {
                     let resp_data = response.data.results
@@ -58,136 +58,72 @@ export default function AddProduct() {
                             let resp_data = response.data.results
                             setPromotions(resp_data);
                         })
-                ).catch((error) => {
+                )
+                .then(
+                    await API.get(`/backoffice/product/${id}/`)
+                        .then((response) => {
+                            setData(response.data)
+                            return response.data
+                        })
+                        .then(async (data) => {
+                            await API.get(`/inventory/${data.inventory}/`)
+                                .then((response) => {
+                                    let resp_data = response.data
+                                    setInventory(resp_data);
+                                })
+                        })
+                )
+                .catch((error) => {
                     console.log(error);
                 })
         };
 
-        getData();
+        getProduct();
 
         return () => {
             // this now gets called when the component unmounts
-            console.log("data fetched");
+            console.log(" Single data fetched");
         };
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    // Checkbox changes
-    const onChangeCB = (e) => {
+    const onChangeCB = level => (e) => {
         const { name, checked } = e.target;
-        setData(prevValue => {
-            return {
-                ...prevValue,
-                [name]: checked ? true : false
-            };
-        });
-    };
-    const onChangeImagesCB = imgId => (e) => {
-        const { name, checked } = e.target;
-        setImages(prevValue => {
-            if (prevValue[imgId]) {
-                return prevValue.map((item, id) => {
-                    if (Number(imgId) === id) {
-                        return {
-                            ...item,
-                            [name]: checked ? true : false
-                        }
-                    } return item;
-                }
-                );
-            };
-            return [...prevValue, {
-                [name]: checked ? true : false
-            }]
-        })
-    }
-
-    // form submission
-    const handleSubmit = async e => {
-        e.preventDefault();
-        try {
-            await API.post(
-                `/inventory/`,
-                {
-                    "quantity_sold": inventory.quantity_sold,
-                    "total": inventory.total
-                }
-            ).then(
-                (response) => {
-                    const inv = response.data
-                    return inv
-                }
-            ).then(async (inv) =>
-
-                await API.post(
-                    `/backoffice/product/`,
-                    {
-                        ...data,
-                        "inventory": inv.id
-                    }
-                ).then(res => {
-                    if (res.status === 201) {
-                        const prod = res.data
-                        return prod
-                    };
-                }).then(async (prod) => {
-                    await API.post(
-                        `/backoffice/media/`, images.map(item => {
+        if (!level) {
+            setData(prevValue => {
+                return {
+                    ...prevValue,
+                    [name]: checked ? true : false
+                };
+            });
+        } else {
+            let index = e.target.id
+            setData(prevValue => {
+                return {
+                    ...prevValue,
+                    [level]: prevValue.image.map((item, id) => {
+                        if (Number(index) === id) {
                             return {
                                 ...item,
-                                "product": prod.id,
+                                [name]: checked ? true : false
                             }
-                        })
-                    ).then((response) => {
-                        if (response.status === 201) {
-                            alert(`Created product ${response.data.product} successfully`);
-                            navigate("../products");
-                        };
+                        }
+                        return item
 
                     })
-                })
-            );
-
-        } catch (error) {
-            console.log(error)
-        };
+                };
+            });
+        }
     };
 
-    // Inventory data changes 
-    const handleInventoryChange = e => {
+    const handleInventoryChange = e =>{
+        console.log(e);
         setInventory({
             ...inventory,
             [e.target.name]: Number(e.target.value)
         })
-    };
-
-    // Images changes 
-    const handleImageChange = e => {
-        let index = e.target.id
-        let file_name = e.target.files[0].name
-        console.log(file_name);
-
-        setImages(prevValue => {
-            if (prevValue[index]) {
-                return prevValue.map((item, id) => {
-                    if (Number(index) === id) {
-                        return {
-                            ...item,
-                            [e.target.name]: e.target.value,
-                        }
-                    } return item;
-                }
-                );
-            };
-            return [...prevValue, {
-                [e.target.name]: e.target.value,
-                "is_feature": false,
-            }]
-        })
     }
-
-    // global form completion changes monitoring 
 
     const handleChange = level => e => {
 
@@ -219,10 +155,9 @@ export default function AddProduct() {
         } else if (level === "categories") {
             setData({
                 ...data,
-                categories: [Number(e.target.children[e.target.selectedIndex].id)]
+                categories: [e.target.children[e.target.selectedIndex].id]
             })
-        }
-        else {
+        } else {
             setData({
                 ...data,
                 [level]: {
@@ -233,9 +168,44 @@ export default function AddProduct() {
         }
     };
 
-    // Image deletion 
     const removeImage = (imgId) => {
-        setImages((oldState) => oldState.filter((item, index) => index !== Number(imgId)));
+        console.log(imgId)
+
+        setData(prev => {
+            const items = prev.image.filter((item, id) => id !== Number(imgId))
+            return {
+                ...prev,
+                items
+            }
+        })
+    }
+
+
+    const handleSubmit = async e => {
+        e.preventDefault();
+        console.log(data);
+        try {
+            await API.patch(
+                `/inventory/${data.inventory}/`,
+                {
+                    "quantity_sold": inventory.quantity_sold,
+                    "total": inventory.total
+                  }
+                
+            ).then(
+                await API.patch(
+                    `/backoffice/product/${id}/`,
+                    data
+                ).then(res => {
+                    if (res.status === 200) {
+                        alert("updated product successfully")
+                        navigate("../products")
+                    }
+                })
+            )
+        } catch (error) {
+            console.log(error)
+        };
     };
 
     return (
@@ -250,7 +220,7 @@ export default function AddProduct() {
                         <Input
                             name="name"
                             className="formInput"
-                            placeholder="Product Name"
+                            placeholder="Name"
                             value={data.name}
                             onChange={handleChange()}
                         />
@@ -259,7 +229,7 @@ export default function AddProduct() {
                             name="price"
                             className="formInput"
                             value={data.price}
-                            placeholder="Product price"
+                            placeholder="price"
                             onChange={handleChange()}
                         />
                         <Label className="formLabel">Product Slug </Label>
@@ -267,17 +237,38 @@ export default function AddProduct() {
                             name="slug"
                             className="formInput"
                             value={data.slug}
-                            placeholder="Product Slug"
+                            placeholder="slug"
                             onChange={handleChange()}
                         />
-                        <Row md={4} lg={4} sm={4}>
+                        <Row>
                             <Col>
                                 <Label> Inital stock </Label>
                                 <Input
                                     name="total"
                                     className="formInput"
                                     value={inventory.total}
-                                    placeholder=" Initial stock"
+                                    placeholder="stock"
+                                    onChange={handleInventoryChange}
+                                />
+                            </Col>
+                            <Col>
+                                <Label> Quantity Sold </Label>
+                                <Input
+                                    name="quantity_sold"
+                                    className="formInput"
+                                    value={inventory.quantity_sold}
+                                    placeholder="quantiy sold"
+                                    onChange={handleInventoryChange}
+                                />
+                            </Col>
+                            <Col>
+                                <Label> Available quantity </Label>
+                                <Input
+                                    name="available_quantity"
+                                    className="formInput"
+                                    readOnly
+                                    value={inventory.available_quantity}
+                                    placeholder="available quantity"
                                     onChange={handleInventoryChange}
                                 />
                             </Col>
@@ -288,11 +279,11 @@ export default function AddProduct() {
                         <Input
                             name="name"
                             className="formInput"
+                            placeholder="product category"
                             type="select"
                             onChange={handleChange("categories")}
                             value={data.categories[0]}
                         >
-                            <option> Select a category </option>
                             {
                                 categories.map((cat) => (
                                     <option
@@ -310,11 +301,11 @@ export default function AddProduct() {
                         <Input
                             name="name"
                             className="formInput"
+                            placeholder="product subcategory"
                             type="select"
                             onChange={handleChange("subcategory")}
                             value={data.subcategory}
                         >
-                            <option> Select a Subcategory </option>
                             {
                                 subcategories.map((subcat) => (
                                     <option
@@ -338,21 +329,16 @@ export default function AddProduct() {
                             value={data.description}
                             type="textarea"
                         />
-                    </FormGroup>
-                    <FormGroup>
-
-                        {/* Images  */}
-
-                        <Label className="formLabel">Product Images </Label>
+                        {/* <Label className="formLabel">Product Images </Label>
                         <Row>
                             <Col sm={2} lg={2} md={2} className="imgButtonCol">
                                 <Input
                                     id={0}
                                     name="is_feature"
                                     className="formCheckBox"
+                                    // checked={data.image[0].is_feature?data.image[0].is_feature:false}
                                     type="checkbox"
-                                    value={images[0] ? images[0].is_feature : false}
-                                    onChange={onChangeImagesCB(0)}
+                                    onChange={onChangeCB("image")}
                                 />{'  '} <Label>is Feature ?</Label>
                             </Col>
                             <Col sm={8} lg={8} md={8}>
@@ -360,11 +346,9 @@ export default function AddProduct() {
                                     id={0}
                                     name="image"
                                     className="formInput"
+                                    onChange={handleChange("image")}
                                     type="file"
-                                    accept="image/jpeg,image/png,image/"
-                                    onChange={handleImageChange}
-                                    value={images[0] ? images[0].image : ""}
-                                />
+                                ></Input>
                             </Col>
                             <Col sm={2} lg={2} md={2}> <Button onClick={() => removeImage(0)}> delete</Button> </Col>
                         </Row>
@@ -374,9 +358,9 @@ export default function AddProduct() {
                                     id={1}
                                     name="is_feature"
                                     className="formCheckBox"
+                                    checked={data.image[1] ? data.image[1].is_feature : false}
                                     type="checkbox"
-                                    value={images[1] ? images[1].is_feature : false}
-                                    onChange={onChangeImagesCB(1)}
+                                    onChange={onChangeCB("image")}
                                 />{'  '} <Label>is Feature ?</Label>
                             </Col>
                             <Col sm={8} lg={8} md={8}>
@@ -384,10 +368,8 @@ export default function AddProduct() {
                                     id={1}
                                     name="image"
                                     className="formInput"
+                                    onChange={handleChange("image")}
                                     type="file"
-                                    accept="image/jpeg,image/png,image/"
-                                    value={images[1] ? images[1].image : ""}
-                                    onChange={handleImageChange}
                                 ></Input>
                             </Col>
                             <Col sm={2} lg={2} md={2}> <Button onClick={() => removeImage(1)}> delete</Button> </Col>
@@ -398,9 +380,9 @@ export default function AddProduct() {
                                     id={2}
                                     name="is_feature"
                                     className="formCheckBox"
+                                    checked={data.image[2] ? data.image[2].is_feature : false}
                                     type="checkbox"
-                                    value={images[2] ? images[2].is_feature : false}
-                                    onChange={onChangeImagesCB(2)}
+                                    onChange={onChangeCB("image")}
                                 />{'  '} <Label>is Feature ?</Label>
                             </Col>
                             <Col sm={8} lg={8} md={8}>
@@ -408,14 +390,13 @@ export default function AddProduct() {
                                     id={2}
                                     name="image"
                                     className="formInput"
+                                    defaultValue={data.image[2] ? data.image[2].image : null}
+                                    onChange={handleChange("image")}
                                     type="file"
-                                    accept="image/jpeg,image/png,image/"
-                                    value={images[2] ? images[2].image : ""}
-                                    onChange={handleImageChange}
                                 ></Input>
                             </Col>
                             <Col sm={2} lg={2} md={2}> <Button onClick={() => removeImage(2)}> delete</Button> </Col>
-                        </Row>
+                        </Row> */}
 
                         <Row className="checkbox">
                             <Col className="checkbox-div">
@@ -426,7 +407,7 @@ export default function AddProduct() {
                                     defaultValue={data.is_available}
                                     checked={data.is_available}
                                     type="checkbox"
-                                    onChange={onChangeCB}
+                                    onChange={onChangeCB()}
                                     sm={2}
                                 />{'  '} <Label>is Available ?</Label>
                             </Col>
@@ -438,7 +419,7 @@ export default function AddProduct() {
                                     defaultValue={data.on_promo}
                                     type="checkbox"
                                     checked={data.on_promo}
-                                    onChange={onChangeCB}
+                                    onChange={onChangeCB()}
                                     sm={2}
                                 />{'  '} <Label>On promotion ?</Label>
                             </Col>
@@ -470,6 +451,16 @@ export default function AddProduct() {
                                     )
                                 }
                             </Input>
+                            <Label for="promoPrice" className="formLabel">Promotion price </Label>
+                            <Input
+                                id="promoPrice"
+                                name="promo_price"
+                                className="formInput"
+                                onChange={handleChange()}
+                                disabled={data.on_promo === true ? false : true}
+                                readOnly
+                                value={data.on_promo ? data.promo_price : ""}
+                            />
                         </FormGroup>
 
                         <div className="formButton">
@@ -478,7 +469,7 @@ export default function AddProduct() {
                                 outline
                                 type="submit"
                                 style={{ "textAlign": "center", "marginRight": "0.5rem" }}>
-                                Add Product
+                                Update Product
                             </Button>
                             <Button
                                 color="danger"
@@ -492,6 +483,5 @@ export default function AddProduct() {
             </div>
         </section>
     )
-
-
 }
+export default ViewProduct;
