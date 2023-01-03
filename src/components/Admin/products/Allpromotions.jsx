@@ -24,9 +24,12 @@ export default function AllPromotion() {
         } catch (error) {
             console.log(error);
         }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    function singlePage(id) {
+        console.log("clicked");
+        navigate(`../promotion/${id}`);
+    }
 
     return (
         <div className="table-layout">
@@ -71,6 +74,7 @@ export default function AllPromotion() {
                                             className="button"
                                             outline
                                             size="sm"
+                                            onClick={() => singlePage(e.id)}
                                         > <RxUpdate /> Update </Button>
                                     </td>
                                 </tr>
@@ -82,7 +86,7 @@ export default function AllPromotion() {
             <Button
                 color="success"
                 outline
-            >
+                onClick={() => navigate("/admin/promotion/add")}>
                 <GrAddCircle />
                 Add New Promotion
             </Button>

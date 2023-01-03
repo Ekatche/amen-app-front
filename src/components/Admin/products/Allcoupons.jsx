@@ -28,6 +28,11 @@ export default function AllCoupons() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    
+    function singlePage(id) {
+        console.log("clicked");
+        navigate(`../coupon/${id}`);
+    }
     return (
         <div className="table-layout">
             <div>
@@ -65,6 +70,7 @@ export default function AllCoupons() {
                                             className="button"
                                             outline
                                             size="sm"
+                                            onClick={() => singlePage(e.id)}
                                         > <RxUpdate /> Update </Button>
                                     </td>
                                 </tr>
@@ -76,6 +82,7 @@ export default function AllCoupons() {
             <Button
                 color="success"
                 outline
+                onClick={() => navigate("/admin/coupon/add")}
             >
                 <GrAddCircle />
                 Add New Coupon

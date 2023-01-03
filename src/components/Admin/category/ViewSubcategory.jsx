@@ -78,8 +78,9 @@ function ViewSubCategory() {
             </div>
             <div className="addForm">
                 <Form onSubmit={handleSubmit}>
-                    <Label className="formlabel required">SubCategory Name</Label>
+                    
                     <FormGroup>
+                    <Label className="formlabel required">SubCategory Name</Label>
                         <Input
                             name="name"
                             className="formInput"

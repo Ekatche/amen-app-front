@@ -14,6 +14,12 @@ import ViewSubCategory from "./category/ViewSubcategory";
 import AddSubCategory from "./category/AddSubCategory";
 import ViewProduct from "./products/Viewproduct";
 import AddProduct from "./products/Addproduct";
+import ViewPromotion from "./products/Viewpromotion";
+import AddPromotion from "./products/Addpromotion";
+import ViewCoupon from "./products/Viewcoupon";
+import AddCoupon from "./products/Addcoupon";
+import ViewUser from "./users/ViewUser";
+import AllOrders from "./orders/Allorders";
 
 function AdminRoutes() {
     return (
@@ -58,7 +64,7 @@ function AdminRoutes() {
                         </>
                     }
                 />
-
+                {/* Users */}
                 <Route
                     path="users"
                     element={
@@ -66,6 +72,16 @@ function AdminRoutes() {
                             <AdminNavBar />
                             <AllUsers />
                         </>
+                    }
+                />
+                <Route
+                    path="user/:id"
+                    element={
+                        <>
+                            <AdminNavBar />
+                            <ViewUser />
+                        </>
+
                     }
                 />
                 {/* products */}
@@ -100,6 +116,17 @@ function AdminRoutes() {
 
                     }
                 />
+                {/* Orders */}
+                <Route
+                    path="orders"
+                    element={
+                        <>
+                            <AdminNavBar />
+                            <AllOrders />
+                        </>
+
+                    }
+                />
 
                 {/* promotions */}
                 <Route
@@ -117,7 +144,7 @@ function AdminRoutes() {
                     element={
                         <>
                             <AdminNavBar />
-                            <AllPromotion />
+                            <AddPromotion />
                         </>
 
                     }
@@ -127,7 +154,7 @@ function AdminRoutes() {
                     element={
                         <>
                             <AdminNavBar />
-                            <AllPromotion />
+                            <ViewPromotion />
                         </>
 
                     }
@@ -149,7 +176,7 @@ function AdminRoutes() {
                     element={
                         <>
                             <AdminNavBar />
-                            <AllCoupons />
+                            <AddCoupon />
                         </>
 
                     }
@@ -159,7 +186,7 @@ function AdminRoutes() {
                     element={
                         <>
                             <AdminNavBar />
-                            <AllCoupons />
+                            <ViewCoupon />
                         </>
 
                     }

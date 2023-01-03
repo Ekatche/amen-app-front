@@ -25,9 +25,12 @@ function AllUsers() {
         } catch (error) {
             console.log(error);
         }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    function singlePage(id) {
+        console.log("clicked");
+        navigate(`../user/${id}`)  ;
+    }
     return (
         <div className="">
             <div>
@@ -71,7 +74,8 @@ function AllUsers() {
                                             className="button"
                                             outline
                                             size="sm"
-                                        > <RxUpdate /> Update </Button>
+                                            onClick={() => singlePage(e.id)}>
+                                        <RxUpdate /> Update </Button>
                                     </td>
                                 </tr>
                             ))

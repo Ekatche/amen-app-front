@@ -11,7 +11,7 @@ const initalDetails = {
 function AddSubCategory() {
     const api = useAxios();
     const [form, setForm] = useState(initalDetails);
-    const [categories, setCategories] = useState([])
+    const [categories, setCategories] = useState([]);
     let navigate = useNavigate();
 
     useEffect(() => {
