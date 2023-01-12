@@ -1,7 +1,7 @@
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import dayjs from "dayjs";
-import { useContext, useNavigate } from "react";
+import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
 
 const baseURL = "http://127.0.0.1:8000/api";
@@ -28,6 +28,12 @@ const useAxios = () => {
 
         const response = await axios.post(`${baseURL}/token/refresh/`, {
             "refresh": refresh
+        }).catch((error)=>{
+            // if token exipred go to the connection page
+            const status = error.response.status
+            if (status === 401 ) {
+                navigate("admin/login")
+            }
         });
 
         localStorage.setItem("authTokens", JSON.stringify(response.data.access));
