@@ -1,4 +1,8 @@
+/* General class*/
 
+.mb1 {
+    margin-bottom: 1.5rem;
+}
 /* title header  */
 
 .category-title {
@@ -42,4 +46,8 @@
 
 .formButton {
     text-align: center;
+}
+
+.search-bar {
+ padding: 0 25%;
 }

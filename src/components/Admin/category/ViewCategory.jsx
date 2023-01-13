@@ -23,7 +23,7 @@ function ViewCategory() {
                 [name]: value,
             };
         });
-    };
+    }
 
     useEffect(() => {
         const getCat = async () => {
