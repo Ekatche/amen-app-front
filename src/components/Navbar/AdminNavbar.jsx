@@ -17,7 +17,7 @@ function AdminNavBar() {
   return (
     <>
       <IconContext.Provider value={{ color: "undefined" }}>
-        <div className="navbar">
+        <div className="navbar sticky-top">
 
           <NavLink to="#" className="menu-bars">
             <FaIcons.FaBars onClick={showSidebar} />
