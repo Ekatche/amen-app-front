@@ -1,135 +1,135 @@
-import { useState, useEffect, useContext } from "react";
-import {Button, Input, Table} from "reactstrap";
+import {useEffect, useState} from "react";
 import useAxios from "../../../utils/useAxios";
-import { useNavigate, NavLink } from "react-router-dom";
-import { AiFillDelete } from "react-icons/ai";
-import { RxUpdate } from 'react-icons/rx';
+import {useNavigate} from "react-router-dom";
+import {AiFillDelete} from "react-icons/ai";
+import {RxUpdate} from 'react-icons/rx';
 import "./user.css"
-import {FcNext, FcPrevious} from "react-icons/fc";
+import {DataGrid, GridActionsCellItem} from "@mui/x-data-grid";
+import {Box} from "@mui/material";
+import Header from "../Header/Header";
+import DataGridCustomToolbar from "../ToolBar/CustomToolbar";
+import DataGridCustomFooter from "../Footer/Footer";
 
 function AllUsers() {
 
     const [data, setData] = useState([]);
     const [search, setSearch] = useState("");
-    const [nextUrl, setnextUrl] = useState("");
+    const [searchInput, setSearchInput] = useState("");
+    const [nextUrl, setNextUrl] = useState("");
     const [prevUrl, setPrevUrl] = useState("");
-    let navigate = useNavigate()
-    const API = useAxios()
+    let name = "User";
+    let url = "";
+    let navigate = useNavigate();
+    const API = useAxios();
+    const [page, setPage] = useState(1);
 
     useEffect(() => {
         try {
             API.get(`user/backoffice/user?term=${search}`)
                 .then((response) => {
                     setData(response.data.results);
-                     setnextUrl(response.data.next);
+                    setNextUrl(response.data.next);
                     setPrevUrl(response.data.previous);
+                    setPage(1);
                 })
         } catch (error) {
             console.log(error);
         }
     }, [search]);
 
-        const paginationHandler = (url) => {
-        try {
-            API.get(url)
-                .then((response) => {
-                    setnextUrl(response.data.next);
-                    setPrevUrl(response.data.previous);
-                    setData(response.data.results);
-                })
-        } catch (e) {
-            console.log(e);
+    const columns = [
+        {
+            field: "id",
+            headerName: "ID",
+            flex: "auto",
+        },
+        {
+            field: "email",
+            headerName: "Email",
+            flex: 0.7,
+        },
+        {
+            field: "first_name",
+            headerName: "First Name",
+            flex: 0.35,
+            sortable: true,
+        },
+        {
+            field: "last_name",
+            headerName: "Last Name",
+            flex: "auto",
+        },
+        {
+            field: "gender",
+            headerName: "Gender",
+            flex: "auto",
+        },
+        {
+            field: "birth_date",
+            headerName: "Birth Date",
+            flex: 0.5,
+        },
+        {
+            field: "phone_prefix",
+            headerName: "Phone Prefix",
+            flex:0.25
+        },
+        {
+            field: "phone_number",
+            headerName: "Phone Number",
+            flex: 1,
+        },
+        {
+            headerName: "Actions",
+            type: 'actions',
+            flex: 0.5,
+            getActions: (params) => [
+                <GridActionsCellItem
+                    label={"Update"}
+                    icon={<RxUpdate/>}
+                    color={"primary"}
+                    onClick={() => singlePage(params.id)}
+                />,
+                <GridActionsCellItem
+                    label={"Delete"}
+                    color={"error"}
+                    icon={<AiFillDelete/>}
+
+                />
+            ]
         }
-    }
+    ]
 
     function singlePage(id) {
         console.log("clicked");
-        navigate(`../user/${id}`)  ;
+        navigate(`../user/${id}`);
     }
+
     return (
-        <div className="table-layout">
-            <div>
-                <h1 className="page-title ">All Users</h1>
-            </div>
-            <div className="container">
-                <div className="container search-bar mb-4">
-                    <Input
-                        onChange={e => setSearch(e.target.value)}
-                        type="search"
-                        placeholder="search..."
-                        value={search}
-                    />
-                </div>
-                <Table className="table-layout">
-                    <thead>
-                        <tr>
-                            <th>id</th>
-                            <th>email</th>
-                            <th>first name</th>
-                            <th>last name</th>
-                            <th>gender</th>
-                            <th>birth date</th>
-                            <th>phone prefix</th>
-                            <th>phone number</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            data.map((e) => (
-                                <tr key={e.id}>
-                                    <td>{e.id}</td>
-                                    <td>{e.email}</td>
-                                    <td>{e.first_name}</td>
-                                    <td>{e.last_name}</td>
-                                    <td>{e.gender}</td>
-                                    <td>{e.birth_date}</td>
-                                    <td>{e.phone_prefix}</td>
-                                    <td>{e.phone_number}</td>
-                                    <td>
-                                        <Button
-                                            className="button"
-                                            color="danger"
-                                            outline
-                                            size="sm"> <AiFillDelete /> Delete </Button>
-                                        <Button
-                                            color="primary"
-                                            className="button"
-                                            outline
-                                            size="sm"
-                                            onClick={() => singlePage(e.id)}>
-                                        <RxUpdate /> Update </Button>
-                                    </td>
-                                </tr>
-                            ))
+        <Box margin={"2rem"}>
+            <Box>
+                <Header title={name} subtitle={`Entire list of ${name}`}/>
+                <Box height={"80vh"}>
+                    <DataGrid
+                        rows={data}
+                        columns={columns}
+                        rowsPerPageOptions={[10, 20, 30]}
+                        components={
+                            {
+                                Toolbar: DataGridCustomToolbar,
+                                Footer: DataGridCustomFooter,
+                            }
                         }
-                    </tbody>
-                </Table>
-            </div>
-             <div className={"row"}>
-                <div className={"col-4"}>
-                    {prevUrl && <Button
-                        color="secondary"
-                        className={"button"}
-                        outline
-                        onClick={() => paginationHandler(prevUrl)}>
-                        <FcPrevious className="addButton"/>
-                        Previous
-                    </Button>}
-                </div>
-                <div className={"col-4"}>
-                    {nextUrl && <Button
-                        color="secondary"
-                        outline
-                        className={"button"}
-                        onClick={() => paginationHandler(nextUrl)}
-                    >
-                        <FcNext className="addButton"/>
-                        Next
-                    </Button>}
-                </div>
-            </div>
-        </div>
+                        componentsProps={
+                            {
+                                toolbar: {searchInput, setSearchInput, setSearch, name, url},
+                                footer: {setNextUrl, setPrevUrl, setData, nextUrl, prevUrl, page, setPage},
+                            }
+                        }
+                    />
+                </Box>
+            </Box>
+        </Box>
     )
 }
 

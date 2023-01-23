@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { Form, FormGroup, Label, Button, Input, Row, Col } from "reactstrap";
-import { useNavigate, useParams } from "react-router-dom";
+import {useEffect, useState} from "react";
+import {Button, Col, Form, FormGroup, Input, Label, Row} from "reactstrap";
+import {useNavigate, useParams} from "react-router-dom";
 import useAxios from "../../../utils/useAxios";
 
 const initalDetails = {
@@ -24,7 +24,6 @@ const initalDetails = {
 }
 
 
-
 function ViewProduct() {
     const API = useAxios();
     const [data, setData] = useState(initalDetails);
@@ -34,7 +33,7 @@ function ViewProduct() {
     const [inventory, setInventory] = useState([])
     const [images, setImages] = useState([])
     const navigate = useNavigate();
-    let { id } = useParams();
+    let {id} = useParams();
 
     // fetch data 
 
@@ -89,7 +88,7 @@ function ViewProduct() {
     }, []);
 
     const onChangeCB = level => (e) => {
-        const { name, checked } = e.target;
+        const {name, checked} = e.target;
         if (!level) {
             setData(prevValue => {
                 return {
@@ -117,7 +116,7 @@ function ViewProduct() {
         }
     };
 
-    const handleInventoryChange = e =>{
+    const handleInventoryChange = e => {
         console.log(e);
         setInventory({
             ...inventory,
@@ -139,15 +138,13 @@ function ViewProduct() {
                     [e.target.name]: Number(e.target.children[e.target.selectedIndex].id),
                 })
             }
-        }
-        else if (!level) {
+        } else if (!level) {
             // Assume root level
             setData({
                 ...data,
                 [e.target.name]: e.target.value
             })
-        }
-        else if (level === "subcategory") {
+        } else if (level === "subcategory") {
             setData({
                 ...data,
                 subcategory: Number(e.target.children[e.target.selectedIndex].id)
@@ -190,8 +187,7 @@ function ViewProduct() {
                 {
                     "quantity_sold": inventory.quantity_sold,
                     "total": inventory.total
-                  }
-                
+                }
             ).then(
                 await API.patch(
                     `/backoffice/product/${id}/`,
@@ -205,7 +201,7 @@ function ViewProduct() {
             )
         } catch (error) {
             console.log(error)
-        };
+        }
     };
 
     return (
@@ -286,14 +282,14 @@ function ViewProduct() {
                         >
                             {
                                 categories.map((cat) => (
-                                    <option
-                                        key={cat.id}
-                                        id={cat.id}
-                                        value={cat.id}
-                                    >
-                                        {cat.name}
-                                    </option>
-                                )
+                                        <option
+                                            key={cat.id}
+                                            id={cat.id}
+                                            value={cat.id}
+                                        >
+                                            {cat.name}
+                                        </option>
+                                    )
                                 )
                             }
                         </Input>
@@ -425,29 +421,29 @@ function ViewProduct() {
                             </Col>
                         </Row>
 
-                        <FormGroup >
+                        <FormGroup>
                             <Label className="formLabel">Promotion </Label>
                             <Input
                                 name="promotion"
                                 className="formInput"
                                 value={(data.on_promo === true) && (data.promotion) ? data.promotion : ""}
                                 type="select"
-                                disabled={data.on_promo === true ? false : true}
-                                readOnly={data.on_promo === true ? false : true}
+                                disabled={data.on_promo !== true}
+                                readOnly={data.on_promo !== true}
                                 onChange={handleChange()}
                             >
                                 <option></option>
                                 {
                                     promotions.map((promotion) => (
-                                        <option
-                                            key={promotion.id}
-                                            id={promotion.id}
-                                            name="name"
-                                            value={promotion.id}
-                                        >
-                                            {promotion.name}
-                                        </option>
-                                    )
+                                            <option
+                                                key={promotion.id}
+                                                id={promotion.id}
+                                                name="name"
+                                                value={promotion.id}
+                                            >
+                                                {promotion.name}
+                                            </option>
+                                        )
                                     )
                                 }
                             </Input>
@@ -457,7 +453,7 @@ function ViewProduct() {
                                 name="promo_price"
                                 className="formInput"
                                 onChange={handleChange()}
-                                disabled={data.on_promo === true ? false : true}
+                                disabled={data.on_promo !== true}
                                 readOnly
                                 value={data.on_promo ? data.promo_price : ""}
                             />
@@ -468,7 +464,7 @@ function ViewProduct() {
                                 color="success"
                                 outline
                                 type="submit"
-                                style={{ "textAlign": "center", "marginRight": "0.5rem" }}>
+                                style={{"textAlign": "center", "marginRight": "0.5rem"}}>
                                 Update Product
                             </Button>
                             <Button
@@ -484,4 +480,5 @@ function ViewProduct() {
         </section>
     )
 }
+
 export default ViewProduct;

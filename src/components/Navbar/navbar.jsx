@@ -1,22 +1,11 @@
-import { useContext } from "react";
+import React, {useContext, useState} from "react";
 import AuthContext from "../../context/AuthContext"
-import React, { useState } from 'react';
-import {
-    Collapse,
-    Navbar,
-    NavbarToggler,
-    NavbarBrand,
-    Nav,
-    NavItem,
-    NavLink
-} from 'reactstrap';
+import {Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink} from 'reactstrap';
 
-function NavBar(args) {
+function NavBarHome(args) {
     const [isOpen, setIsOpen] = useState(false);
-
     const toggle = () => setIsOpen(!isOpen);
-
-    const { user, logoutUser } = useContext(AuthContext);
+    const {user, logoutUser} = useContext(AuthContext);
 
     return (
         <div>
@@ -39,7 +28,7 @@ function NavBar(args) {
                                     </NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink href = "#" onClick={logoutUser}>
+                                    <NavLink href="#" onClick={logoutUser}>
                                         logout
                                     </NavLink>
                                 </NavItem>
@@ -68,8 +57,8 @@ function NavBar(args) {
                 </Collapse>
             </Navbar>
         </div>
+
     )
+}
 
-};
-
-export default NavBar;
+export default NavBarHome;

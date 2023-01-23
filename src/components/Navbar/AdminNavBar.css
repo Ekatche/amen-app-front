@@ -21,9 +21,8 @@
 
 /* Navbar CSS */
 .navbar {
-  background-color: #ffffff;
   height: 80px;
-  display: flex;
+  /*display: flex;*/
   justify-content: flex-start;
   align-items: center;
 }
@@ -59,6 +58,8 @@
 .nav-menu.active {
   left: 0;
   transition: 450ms;
+  z-index: 1;
+  position: fixed;
 }
 
 .nav-text {

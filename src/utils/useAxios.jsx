@@ -29,7 +29,7 @@ const useAxios = () => {
         const response = await axios.post(`${baseURL}/token/refresh/`, {
             "refresh": refresh
         }).catch((error)=>{
-            // if token exipred go to the connection page
+            // if token expired go to the connection page
             const status = error.response.status
             if (status === 401 ) {
                 navigate("admin/login")

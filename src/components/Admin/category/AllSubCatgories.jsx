@@ -1,17 +1,73 @@
 import {useEffect, useState} from "react";
-import {Button, Input, Table} from "reactstrap";
 import useAxios from "../../../utils/useAxios";
-import {Navigate, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import './Categories.css'
 import {AiFillDelete} from "react-icons/ai";
 import {RxUpdate} from 'react-icons/rx'
+import {DataGrid, GridActionsCellItem} from "@mui/x-data-grid";
+import {Box} from "@mui/material";
+import Header from "../Header/Header";
+import DataGridCustomToolbar from "../ToolBar/CustomToolbar";
+import DataGridCustomFooter from "../Footer/Footer";
 
 function AllSubcategories() {
+
     const [data, setData] = useState([]);
     const [categories, setCategories] = useState([]);
-    const [search , setSearch] = useState("");
-    const API = useAxios()
-    let navigate = useNavigate()
+    const [search, setSearch] = useState("");
+    const [searchInput, setSearchInput] = useState("");
+    const [page, setPage] = useState(1);
+    const API = useAxios();
+    let name = "SubCategory";
+    let url = "/admin/subcategory/add";
+    let navigate = useNavigate();
+    const [nextUrl, setNextUrl] = useState("");
+    const [prevUrl, setPrevUrl] = useState("");
+    const columns = [
+        {
+            field: "id",
+            headerName: "ID",
+            flex: "auto",
+        },
+        {
+            field: "name",
+            headerName: "Subcategory Name",
+            flex: 0.5,
+        },
+        {
+            field: 'category',
+            headerName: "Category",
+            flex: 0.5,
+            valueGetter: (params) => {
+                return categories
+                    .filter((obj) => {
+                            return obj.id === params.value
+                        }
+                    )
+                    .map((item) => {
+                        return item.name
+                    })
+            }
+        },
+        {
+            headerName: "Actions",
+            type: 'actions',
+            flex: 0.5,
+            getActions: (params) => [
+                <GridActionsCellItem
+                    label={"Update"}
+                    color={"primary"}
+                    icon={<RxUpdate/>}
+                    onClick={() => singlePage(params.id)}
+                />,
+                <GridActionsCellItem
+                    label={"Delete"}
+                    color={"error"}
+                    icon={<AiFillDelete/>}
+                />
+            ]
+        }
+    ]
 
     useEffect(() => {
         try {
@@ -26,7 +82,6 @@ function AllSubcategories() {
                     })
             )
         } catch (error) {
-            Navigate('/admin/login')
             console.log(error);
         }
 
@@ -38,71 +93,32 @@ function AllSubcategories() {
     }
 
     return (
-        <div className="table-layout">
-            <div>
-                <h1 className="category-title">All SubCategories</h1>
-            </div>
-            <div className="container">
-                <div className="container search-bar mb-4">
-                    <Input
-                        onChange={e => setSearch(e.target.value)}
-                        type="search"
-                        placeholder="search..."
-                        value={search}
+        <Box margin={"2rem"}>
+            <Box>
+                <Header title={name} subtitle={`Entire list of ${name}`}/>
+
+                <Box height={"80vh"}>
+                    <DataGrid
+                        rows={data}
+                        columns={columns}
+                        rowsPerPageOptions={[10, 20, 30]}
+                        components={
+                            {
+                                Toolbar: DataGridCustomToolbar,
+                                Footer: DataGridCustomFooter,
+                            }
+                        }
+                        componentsProps={
+                            {
+                                toolbar: {searchInput, setSearchInput, setSearch, name, url},
+                                footer: {setNextUrl, setPrevUrl, setData, nextUrl, prevUrl, page, setPage},
+                            }
+                        }
                     />
-                </div>
-                <Table hover>
-                    <thead>
-                    <tr>
-                        <th>id</th>
-                        <th>name</th>
-                        <th>category</th>
-                        <th>Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {
-                        data.map((e) => (
-                            <tr key={e.id}>
-                                <td>{e.id}</td>
-                                <td>{e.name}</td>
-                                <td>{categories.map(
-                                    (item) => {
-                                        if (item.id === e.category) {
-                                            return item.name
-                                        }
-                                        return false
-                                    }
-                                )
-                                }</td>
-                                <td>
-                                    <Button
-                                        className="button"
-                                        color="danger"
-                                        outline
-                                        size="sm"> <AiFillDelete/> Delete </Button>
-                                    <Button
-                                        color="primary"
-                                        className="button"
-                                        outline
-                                        size="sm"
-                                        onClick={() => singlePage(e.id)}
-                                    > <RxUpdate/> Update </Button>
-                                </td>
-                            </tr>
-                        ))
-                    }
-                    </tbody>
-                </Table>
-            </div>
-            <Button
-                color="success"
-                outline
-                onClick={() => navigate("/admin/subcategory/add")}>
-                Add New SubCategory
-            </Button>
-        </div>
-    )
+                </Box>
+            </Box>
+        </Box>
+    );
 }
 
 export default AllSubcategories;

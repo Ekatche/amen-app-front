@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import AdminRoutes from "../components/Admin/AdminRoutes";
 import Home from "../pages/Home/HomePage";
 import LoginPage from "../pages/Login/LoginPage";
-import NavBar from "../components/Navbar/navbar";
+import NavBarHome from "../components/Navbar/navbar";
 import Footer from "../components/Footer/Footer";
 import Register from "../pages/Register/RegisterPage";
 import PrivateBackofficeRoutes from "../utils/PrivateRoute";
@@ -17,7 +17,7 @@ export default function AllRoutes() {
                 <Route path="/" element=
                     {
                         <>
-                            <NavBar />
+                            <NavBarHome />
                             < Home />
                         </>
                     }
@@ -26,7 +26,7 @@ export default function AllRoutes() {
                     path="login"
                     element={
                         <>
-                            <NavBar />
+                            <NavBarHome />
                             <LoginPage />
                             <Footer />
                         </>
@@ -36,7 +36,7 @@ export default function AllRoutes() {
                     path="register"
                     element=
                     {<>
-                        <NavBar />
+                        <NavBarHome />
                         <Register />
                         <Footer />
                     </>}

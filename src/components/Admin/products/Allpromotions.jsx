@@ -1,96 +1,145 @@
-import { useState, useEffect, useContext } from "react";
-import { Button, Table } from "reactstrap";
+import {useEffect, useState} from "react";
 import useAxios from "../../../utils/useAxios";
-import AuthContext from "../../../context/AuthContext";
-import { useNavigate, NavLink } from "react-router-dom";
-import { AiFillDelete } from "react-icons/ai";
-import { RxUpdate } from 'react-icons/rx';
-import { GrAddCircle } from 'react-icons/gr';
+import {useNavigate} from "react-router-dom";
+import {AiFillDelete} from "react-icons/ai";
+import {RxUpdate} from 'react-icons/rx';
 import "./Products.css"
+import {DataGrid, GridActionsCellItem} from "@mui/x-data-grid";
+import {Box} from "@mui/material";
+import Header from "../Header/Header";
+import DataGridCustomToolbar from "../ToolBar/CustomToolbar";
+import DataGridCustomFooter from "../Footer/Footer";
 
 export default function AllPromotion() {
     const [data, setData] = useState([]);
-    const { loading } = useContext(AuthContext)
-    let navigate = useNavigate()
-    const API = useAxios()
+    const [coupon, setCoupons] = useState([])
+    const [search, setSearch] = useState("");
+    const [searchInput, setSearchInput] = useState("");
+    const [page, setPage] = useState(1);
+    let navigate = useNavigate();
+    const API = useAxios();
+    let name = "Promotion";
+    let url = "/admin/promotion/add";
+    const [nextUrl, setNextUrl] = useState("");
+    const [prevUrl, setPrevUrl] = useState("");
+    const columns = [
+        {
+            field: "id",
+            headerName: "ID",
+            flex: "auto",
+        },
+        {
+            field: "name",
+            headerName: "Promotion Name",
+            flex: 0.5,
+        },
+        {
+            field: "period",
+            headerName: "Period",
+            flex: "auto",
+        },
+        {
+            field: "coupons",
+            headerName: "Coupon Name",
+            flex: 0.5,
+            valueGetter: (params) => {
+                return coupon
+                    .filter((obj) => {
+                            return obj.id === params.value
+                        }
+                    )
+                    .map((item) => {
+                        return item.name
+                    })
+            }
+        },
+        {
+            field: "is_active",
+            headerName: "Is Active",
+            flex: "auto",
+        },
+        {
+            field: "is_schedule",
+            headerName: "Is Schedule",
+            flex: 0.5,
+        },
+        {
+            field: "date_start",
+            headerName: "Date Start",
+            flex: "auto",
+        },
+        {
+            field: "date_end",
+            headerName: "Date End",
+            flex: 0.5,
+        },
+        {
+            headerName: "Actions",
+            type: 'actions',
+            flex: 0.5,
+            getActions: (params) => [
+                <GridActionsCellItem
+                    label={"Update"}
+                    icon={<RxUpdate/>}
+                    color={"primary"}
+                    onClick={() => singlePage(params.id)}
+                />,
+                <GridActionsCellItem
+                    label={"Delete"}
+                    color={"error"}
+                    icon={<AiFillDelete/>}
+                />
+            ]
+        }
+
+    ]
 
     useEffect(() => {
         try {
             API.get('/backoffice/promotions/')
                 .then((response) => {
-                    setData(response.data.results)
-                    console.log(response.data.results)
+                    setData(response.data.results);
                 })
+                .then(async () => await
+                    API.get('/backoffice/coupons/')
+                        .then((response) => {
+                            setCoupons(response.data.results)
+                        })
+                )
         } catch (error) {
             console.log(error);
         }
-    }, []);
+    }, [search]);
 
     function singlePage(id) {
-        console.log("clicked");
         navigate(`../promotion/${id}`);
     }
 
     return (
-        <div className="table-layout">
-            <div>
-                <h1 className="page-title">All Promotions</h1>
-            </div>
-            <div className="container">
-                <Table >
-                    <thead>
-                        <tr>
-                            <th>id</th>
-                            <th>name</th>
-                            <th>Period</th>
-                            <th>Coupons</th>
-                            <th>Is scheduled</th>
-                            <th>Is active</th>
-                            <th>Date end </th>
-                            <th>Date start</th>
-                            <th> Actions </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            data.map((e) => (
-                                <tr key={e.id}>
-                                    <td>{e.id}</td>
-                                    <td>{e.name}</td>
-                                    <td>{e.period}</td>
-                                    <td>{e.coupons.id}</td>
-                                    <td>{e.is_schedule ? "True" : "False"}</td>
-                                    <td>{e.is_active ? "True" : "False"}</td>
-                                    <td>{e.date_start}</td>
-                                    <td>{e.date_end}</td>
-                                    <td>
-                                        <Button
-                                            className="button"
-                                            color="danger"
-                                            outline
-                                            size="sm"> <AiFillDelete /> Delete </Button>
-                                        <Button
-                                            color="primary"
-                                            className="button"
-                                            outline
-                                            size="sm"
-                                            onClick={() => singlePage(e.id)}
-                                        > <RxUpdate /> Update </Button>
-                                    </td>
-                                </tr>
-                            ))
-                        }
-                    </tbody>
-                </Table>
-            </div>
-            <Button
-                color="success"
-                outline
-                onClick={() => navigate("/admin/promotion/add")}>
-                <GrAddCircle />
-                Add New Promotion
-            </Button>
-        </div>
-    )
+        <Box margin={"2rem"}>
+            <Box>
+                <Header title={name} subtitle={`Entire list of ${name}`}/>
 
+                <Box height={"80vh"}>
+                    <DataGrid
+                        rows={data}
+                        columns={columns}
+                        rowsPerPageOptions={[10, 20, 30]}
+                        components={
+                            {
+                                Toolbar: DataGridCustomToolbar,
+                                Footer: DataGridCustomFooter,
+                            }
+                        }
+                        componentsProps={
+                            {
+                                toolbar: {searchInput, setSearchInput, setSearch, name, url},
+                                footer: {setNextUrl, setPrevUrl, setData, nextUrl, prevUrl, page, setPage},
+                            }
+                        }
+                    />
+                </Box>
+            </Box>
+        </Box>
+    );
 }

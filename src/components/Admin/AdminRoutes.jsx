@@ -20,6 +20,8 @@ import ViewCoupon from "./products/Viewcoupon";
 import AddCoupon from "./products/Addcoupon";
 import ViewUser from "./users/ViewUser";
 import AllOrders from "./orders/Allorders";
+import ViewOrder from  "./orders/Vieworders"
+import ViewOrderItems from "./orders/OrderItem";
 
 function AdminRoutes() {
     return (
@@ -123,6 +125,26 @@ function AdminRoutes() {
                         <>
                             <AdminNavBar />
                             <AllOrders />
+                        </>
+
+                    }
+                />
+                <Route
+                    path="order/:id"
+                    element={
+                        <>
+                            <AdminNavBar />
+                            <ViewOrder />
+                        </>
+
+                    }
+                />
+                <Route
+                    path="order-item/:id"
+                    element={
+                        <>
+                            <AdminNavBar />
+                            <ViewOrderItems />
                         </>
 
                     }
