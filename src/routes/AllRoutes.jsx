@@ -3,12 +3,11 @@ import { Route, Routes } from "react-router-dom";
 import AdminRoutes from "../components/Admin/AdminRoutes";
 import Home from "../pages/Home/HomePage";
 import LoginPage from "../pages/Login/LoginPage";
-import NavBarHome from "../components/Navbar/navbar";
 import Footer from "../components/Footer/Footer";
 import Register from "../pages/Register/RegisterPage";
 import PrivateBackofficeRoutes from "../utils/PrivateRoute";
 import AdminLoginPage from "../pages/Login/AdminLoginPage"
-
+import CustomNavbar from "../components/Navbar/Commercial/NewNavbar";
 
 export default function AllRoutes() {
     return (
@@ -17,8 +16,10 @@ export default function AllRoutes() {
                 <Route path="/" element=
                     {
                         <>
-                            <NavBarHome />
-                            < Home />
+                            {/* <NavbarHome/> */}
+                            <CustomNavbar />
+                            <Home />
+                            <Footer />
                         </>
                     }
                 />
@@ -26,7 +27,7 @@ export default function AllRoutes() {
                     path="login"
                     element={
                         <>
-                            <NavBarHome />
+                            {/* <NavBarHome /> */}
                             <LoginPage />
                             <Footer />
                         </>
@@ -36,7 +37,7 @@ export default function AllRoutes() {
                     path="register"
                     element=
                     {<>
-                        <NavBarHome />
+                        {/* <NavBarHome /> */}
                         <Register />
                         <Footer />
                     </>}

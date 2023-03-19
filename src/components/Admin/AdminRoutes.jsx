@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import AddCategory from "./category/AddCategory";
 import AllCategories from "./category/AllCategories";
-import AdminNavBar from "../../components/Navbar/AdminNavbar"
+import AdminNavBar from "../Navbar/Admin/AdminNavbar"
 import AdminHome from '../../pages/Admin/AdminHome';
 import AllProducts from "./products/Allproducts";
 import AllSubcategories from "./category/AllSubCatgories";

@@ -1,7 +1,7 @@
 import React, {useContext, useState} from "react";
 import {NavLink} from "react-router-dom";
-import AuthContext from "../../context/AuthContext";
-import {SidebarData} from "../Sidebar/AdminSideBar";
+import AuthContext from "../../../context/AuthContext";
+import {SidebarData} from "../../Sidebar/AdminSideBar";
 import {IconContext} from "react-icons";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";

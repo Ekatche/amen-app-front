@@ -1,0 +1,237 @@
+/* ~~~~~~~~~~~~~~~~~~~ NAVBAR ~~~~~~~~~~~~~~~~~~ */
+
+.navbar-client {
+  height: 100%;
+  background-color: white;
+  position: relative;
+  align-items: center;
+  padding: 0 20px;
+}
+
+
+.nav-items {
+  width: 65vw;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0;
+}
+
+.nav-item {
+  list-style: none;
+  margin-left: 2rem;
+}
+
+.top-left {
+  align-items: center;
+  display: flex;
+  -webkit-box-align: center;
+}
+
+.top-right {
+  display: flex;
+  align-items: stretch;
+  align-content: flex-end;
+  font-size: x-large;
+  justify-content: space-between;
+}
+
+.nav-item a {
+  text-decoration: none;
+  color: black;
+  font-size: 1.2rem;
+  padding: 6px 16px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.2s all ease-out;
+}
+
+.nav-item a:hover {
+  background-color: bisque;
+}
+
+.nav-item a span {
+  margin-left: 0.7rem;
+  font-size: 1.3rem;
+}
+
+.navbar .btn {
+  margin-top: 2.4rem;
+  text-align: center;
+  width: auto;
+  padding-left: 10px;
+  margin: 10px;
+}
+.narbar-btn {
+  display: flex;
+  justify-content: center;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~ SIDEBAR ~~~~~~~~~~~~~~~~~~ */
+
+.sidebar-toggle {
+  width: 65vw;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.sidebar {
+  width: 16rem;
+  background-color: whitesmoke;
+  height: 90vh;
+  position: absolute;
+  top: 10vh;
+  left: -100%;
+  transform: 0.3s all ease-in-out;
+}
+
+.sidebar.active {
+  width: 50%;
+  height: 100%;
+  background-color: whitesmoke;
+  position: absolute;
+  top: 10vh;
+  left: 0;
+  transform: 0.3s all ease-in-out;
+  z-index: 1;
+}
+
+.sidebar-items {
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2 all ease-in-out;
+}
+
+.sidebar-item {
+  list-style: none;
+}
+
+.sidebar-item {
+  padding-left: 0;
+}
+.sidebar-item a {
+  text-decoration: none;
+  color: black;
+  font-size: 1.2rem;
+  padding: 6px 16px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.2s all ease-out;
+}
+
+.sidebar-item a span {
+  margin-left: 1.5rem;
+  font-size: 1.3rem;
+}
+
+.sidebar-amen {
+  font-size: 1.8rem;
+}
+
+.sidebar-title {
+  font-size: 1.4rem;
+  margin-left: 0.5rem;
+}
+
+.sidebar-item a:hover {
+  background-color: bisque;
+}
+
+.sidebar .btn {
+  margin-top: 2.4rem;
+  text-align: center;
+  width: auto;
+  padding-left: 10px;
+  margin: 10px;
+}
+.sidebar-btn {
+  display: flex;
+  justify-content: center;
+}
+
+/* @media screen and (max-width:900px) {
+  .sidebar.active{
+    width: 10rem;
+  }
+  .sidebar-item a span {
+    display: none;
+  }
+} */
+
+.text-center {
+  text-align: center;
+}
+
+/* ~~~~~~~~~~ Sidebar header elements ~~~~~~~~ */
+
+.header-top {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  align-items: center;
+  height: 100%;
+  margin-top: 1rem;
+}
+.top-center {
+  width: 70%;
+  justify-content: center;
+  text-align: center;
+}
+
+.top-right {
+  display: flex;
+}
+.top-left {
+  align-items: center;
+}
+
+.mobile-nav {
+  font-size: 2rem;
+  color: black;
+  vertical-align: middle;
+}
+
+.mobile-nav svg {
+  width: auto;
+  height: 24px;
+  margin-bottom: 5px;
+}
+
+.navbar-logo img {
+  margin: 0 10px;
+  height: 50px;
+  width: 50px;
+}
+
+.logo-mobile {
+  display: flex;
+  margin-left: 1.5rem;
+  justify-content: center;
+  text-align: center;
+}
+
+.hearder-item {
+  display: flex;
+  -webkit-box-align: stretch;
+  align-items: stretch;
+  -webkit-box-pack: end;
+  justify-content: flex-end;
+}
+
+.hearder-item a {
+  color: black;
+}
+
+.hearder-item svg {
+  height: 24;
+  width: 24;
+}
