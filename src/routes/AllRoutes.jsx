@@ -16,7 +16,6 @@ export default function AllRoutes() {
                 <Route path="/" element=
                     {
                         <>
-                            {/* <NavbarHome/> */}
                             <CustomNavbar />
                             <Home />
                             <Footer />
@@ -27,7 +26,7 @@ export default function AllRoutes() {
                     path="login"
                     element={
                         <>
-                            {/* <NavBarHome /> */}
+                            <CustomNavbar />
                             <LoginPage />
                             <Footer />
                         </>
@@ -37,7 +36,7 @@ export default function AllRoutes() {
                     path="register"
                     element=
                     {<>
-                        {/* <NavBarHome /> */}
+                        <CustomNavbar />
                         <Register />
                         <Footer />
                     </>}

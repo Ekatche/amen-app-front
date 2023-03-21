@@ -1,7 +1,7 @@
-import * as Icons from "react-icons/fa";
 import { TfiPackage } from "react-icons/tfi";
-import { BsPersonFillCheck, BsFillPersonFill } from "react-icons/bs";
 import { BiHelpCircle } from "react-icons/bi";
+import { AiOutlineHeart } from "react-icons/ai";
+import { BsPerson } from "react-icons/bs";
 import * as RiIcons from "react-icons/ri";
 
 export const navItems = [
@@ -11,14 +11,13 @@ export const navItems = [
     path: "./",
     nName: "nav-item",
     sName: "sidebar-item",
-    icon: <BsFillPersonFill />,
     items: [
       {
         id: 1,
         title: "Me connecter / M'inscrire",
         path: "./login",
         cName: "side-items",
-        icon: <BsPersonFillCheck />,
+        icon: <BsPerson size={"25px"} />,
         subNav: false,
       },
       {
@@ -26,7 +25,7 @@ export const navItems = [
         title: "Favoris",
         path: "./",
         cName: "side-items",
-        icon: <Icons.FaHeart />,
+        icon: <AiOutlineHeart size={"25px"} />,
         subNav: false,
       },
       {
@@ -34,18 +33,17 @@ export const navItems = [
         title: "Mes commandes",
         path: "./",
         cName: "side-items",
-        icon: <TfiPackage />,
+        icon: <TfiPackage size={"23px"} />,
         subNav: false,
       },
     ],
   },
   {
     id: 2,
-    title: "Categories ",
+    title: "Categories",
     path: "./services",
     nName: "nav-item",
     sName: "sidebar-item",
-    icon: <Icons.FaBriefcase />,
     items: [
       {
         id: 1,
@@ -189,8 +187,8 @@ export const navItems = [
             cName: "subnav-items",
             icon: "",
           },
-        ]
-      }
+        ],
+      },
     ],
   },
   {
@@ -199,14 +197,13 @@ export const navItems = [
     path: "./products",
     nName: "nav-item",
     sName: "sidebar-item",
-    icon: <Icons.FaCartArrowDown />,
     items: [
       {
         id: 1,
         title: "Aide et contact",
         path: "./",
         cName: "side-items",
-        icon: <BiHelpCircle />,
+        icon: <BiHelpCircle size={"25px"} />,
         subNav: false,
       },
     ],

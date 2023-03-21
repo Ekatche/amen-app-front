@@ -1,5 +1,5 @@
 .cstmbtn {
-    background: tomato;
+    background: white;
     border: none;
     border-radius: 5px;
     padding: 6px 16px;
@@ -9,12 +9,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: whitesmoke;
+    color: black;
   }
   
-  .btn:hover {
+  .cstmbtn:hover {
     background: whitesmoke;
-    color: tomato;
+    font-weight: bold;
   }
   
   a {

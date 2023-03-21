@@ -7,17 +7,17 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import SingninButton, { LogoutButton, LoginButton } from "../../Sidebar/Button";
-import { FaBars } from "react-icons/fa";
+import { LogoutButton, LoginButton } from "../../Sidebar/Button";
+
 import "./Navbar.css";
 import amenlogo from "./../../../logo/logo_without_background_192.png";
-import SubMenu from "../Submenu";
-import { BsFillPersonFill } from "react-icons/bs";
-import { AiFillShopping } from "react-icons/ai";
+import SubMenu, { DeskSubNav } from "../Submenu";
+// icons
+import { FaBars } from "react-icons/fa";
+import { BsPerson } from "react-icons/bs";
+import { AiOutlineHeart, AiOutlineShopping } from "react-icons/ai";
 // mui material
 import Badge from "@mui/material/Badge";
-import SearchIcon from "@mui/icons-material/Search";
-import InputBase from "@mui/material/InputBase";
 
 const CustomNavbar = () => {
   const { user, logoutUser } = useContext(AuthContext);
@@ -50,10 +50,14 @@ const CustomNavbar = () => {
     };
   }, []);
 
+  const [hovered, setHovered] = useState(false);
+  const toggleHover = () => setHovered(!hovered);
+
   return (
-    <div className="sticky-top sticky-top-static">
-      <nav className="navbar-client">
-        {mobile ? (
+    <>
+      {mobile ? (
+        /* ~~~~~~MOBILE HEADER ~~~~~~*/
+        <header className="navbar-client">
           <div className="mobile-header">
             <div className="header-top">
               <div className="top-left">
@@ -61,6 +65,7 @@ const CustomNavbar = () => {
                   <FaBars
                     className={"sidebar-toggle-logo"}
                     onClick={handleShow}
+                    size={"30px"}
                   />
                 </label>
                 <Link
@@ -76,7 +81,7 @@ const CustomNavbar = () => {
                 </Link>
               </div>
               <div className="top-center">
-                <Form className="d-flex ">
+                <Form className="d-flex header-search">
                   <Form.Control
                     type="search"
                     placeholder="Recherchez un produit"
@@ -87,27 +92,29 @@ const CustomNavbar = () => {
                 </Form>
               </div>
               <div className="top-right">
-                <div className="hearder-item">
+                <div className="mobile-header-item">
                   <Badge>
-                    <a href="/">
-                      <BsFillPersonFill />
+                    <a href="/login">
+                      <BsPerson size={"30px"} />
                     </a>
                   </Badge>
                 </div>
-                <div className="hearder-item">
-                  <Badge
-                    className="hearder-item"
-                    badgeContent={10}
-                    color="error"
-                  >
+                <div className="mobile-header-item">
+                  <Badge badgeContent={10} color="error">
                     <a href="/">
-                      <AiFillShopping />
+                      <AiOutlineHeart size={"30px"} />
+                    </a>
+                  </Badge>
+                </div>
+                <div className="mobile-header-item">
+                  <Badge badgeContent={10} color="error">
+                    <a href="/">
+                      <AiOutlineShopping size={"30px"} />
                     </a>
                   </Badge>
                 </div>
               </div>
             </div>
-
             <Offcanvas show={sidebar} onHide={handleClose}>
               <Offcanvas.Header closeButton>
                 <Offcanvas.Title className="sidebar-amen">
@@ -129,62 +136,99 @@ const CustomNavbar = () => {
               </Offcanvas.Body>
             </Offcanvas>
           </div>
-        ) : (
-          <>
-            <Link
-              to="/"
-              className="navbar-logo"
-              onClick={() => setSidebar(false)}
-            >
-              <img alt="amenlogo" src={amenlogo} className="amen-logo"></img>
-            </Link>
-            <Form className="d-flex justify-content-center col-8">
-              <Form.Control
-                type="search"
-                placeholder="Search"
-                className="me-2"
-                aria-label="Search"
-              />
-              <Button variant="outline-success">Search</Button>
-            </Form>
-            <div className="top-right col-1">
-              <div>
-                <a href="/">
-                  <BsFillPersonFill />
-                </a>
+        </header>
+      ) : (
+        /* ~~~~~~ DESKTOP HEADER ~~~~~~ */
+        <>
+          <header className="navbar-client">
+            <div className="desktop-header container">
+              <div className="search-wrapper">
+                <div className="header-item">
+                  <Link
+                    to="/"
+                    className="navbar-logo"
+                    onClick={() => setSidebar(false)}
+                  >
+                    <img
+                      alt="amenlogo"
+                      src={amenlogo}
+                      className="amen-logo"
+                    ></img>
+                  </Link>
+                  <span> Amen Fragrance </span>
+                </div>
+                <div className="header-search">
+                  <Form className="d-flex">
+                    <Form.Control
+                      type="search"
+                      placeholder="Search"
+                      className="me-2"
+                      aria-label="Search"
+                    />
+                    <Button variant="outline-success">Search</Button>
+                  </Form>
+                </div>
               </div>
-              <div>
-                <a href="/">
-                  <AiFillShopping />
-                </a>
+              <div className="header-links">
+                <div className="header-item">
+                  <Badge
+                    className="hearder-item"
+                    badgeContent={10}
+                    color="error"
+                  >
+                    <a href="/">
+                      <AiOutlineHeart size={"30px"} />
+                    </a>
+                  </Badge>
+                </div>
+                <div className="header-item">
+                  <Badge
+                    className="hearder-item"
+                    badgeContent={10}
+                    color="error"
+                  >
+                    <a href="/">
+                      <AiOutlineShopping size={"30px"} />
+                    </a>
+                  </Badge>
+                </div>
+                <div className="header-item">
+                  {user ? (
+                    <LogoutButton />
+                  ) : (
+                    <ButtonGroup className="navbar-btn">
+                      <LoginButton />
+                    </ButtonGroup>
+                  )}
+                </div>
               </div>
             </div>
-            <div className="row">
-              <ul className="nav-items">
-                {navItems.map((items) => {
-                  return (
-                    <li key={items.id} className={items.nName}>
-                      <a href={items.path}>
-                        {items.icon}
-                        <span>{items.title}</span>
-                      </a>
-                    </li>
-                  );
+          </header>
+          <div className="container">
+            <nav id="nav5" className="main-nav text-center">
+              <ul className="global-nav menu dropdown">
+                {navItems.map((cat) => {
+                  if (cat.title === "Categories") {
+                    return cat.items.map((subcat) => {
+                      return (
+                        <li key={subcat.id}>
+                          <a href="/" className={"hover-item-li"}>
+                            {subcat.title}
+                          </a>
+                          <ul className={"subnav-content is-dropdown-submenu "}>
+                            <DeskSubNav item={subcat} />
+                          </ul>
+                        </li>
+                      );
+                    });
+                  }
                 })}
               </ul>
-            </div>
-            {user ? (
-              <LogoutButton />
-            ) : (
-              <ButtonGroup className="navbar-btn">
-                <SingninButton />
-                <LoginButton />
-              </ButtonGroup>
-            )}
-          </>
-        )}
-      </nav>
-    </div>
+            </nav>
+          </div>
+        </>
+      )}
+    </>
   );
 };
 

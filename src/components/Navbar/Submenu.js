@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "./Submenu.css"
+import "./Submenu.css";
 
 const SubMenu = ({ item }) => {
   const [subnav, setSubnav] = useState(false);
@@ -38,3 +38,23 @@ const SubMenu = ({ item }) => {
 };
 
 export default SubMenu;
+
+const DeskSubNav = ({ item }) => {
+  return (
+    <>
+      {item.subNav.map((subnav) => {
+        return (
+          <div className="nav-level-3-wrapper">
+            <a href={subnav.path}>{subnav.title}</a>
+          </div>
+        );
+      })}
+    </>
+  );
+};
+
+export { DeskSubNav };
+
+// /* <li>
+//   <a href={subnav.path}>{subnav.title}</a>
+// </li> */
