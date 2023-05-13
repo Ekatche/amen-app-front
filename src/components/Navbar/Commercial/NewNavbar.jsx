@@ -124,7 +124,7 @@ const CustomNavbar = () => {
               <Offcanvas.Body>
                 <div>
                   {navItems.map((eachItems) => (
-                    <ul className={eachItems.sName}>
+                    <ul key = {eachItems.id} className={eachItems.sName}>
                       <span className={"sidebar-title"}>{eachItems.title}</span>
                       {eachItems.items.map((items) => {
                         return <SubMenu item={items} />;
@@ -215,8 +215,8 @@ const CustomNavbar = () => {
                           <a href="/" className={"hover-item-li"}>
                             {subcat.title}
                           </a>
-                          <ul className={"subnav-content is-dropdown-submenu "}>
-                            <DeskSubNav item={subcat} />
+                          <ul key={subcat.id} className={"subnav-content is-dropdown-submenu "}>
+                            <DeskSubNav  item={subcat} />
                           </ul>
                         </li>
                       );

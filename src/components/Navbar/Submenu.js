@@ -6,7 +6,6 @@ const SubMenu = ({ item }) => {
   const [subnav, setSubnav] = useState(false);
 
   const showSubnav = () => setSubnav(!subnav);
-
   return (
     <>
       <Link to={item.path} onClick={item.subNav && showSubnav}>
@@ -44,7 +43,7 @@ const DeskSubNav = ({ item }) => {
     <>
       {item.subNav.map((subnav) => {
         return (
-          <div className="nav-level-3-wrapper">
+          <div key={subnav.id} className="nav-level-3-wrapper">
             <a href={subnav.path}>{subnav.title}</a>
           </div>
         );
@@ -54,7 +53,3 @@ const DeskSubNav = ({ item }) => {
 };
 
 export { DeskSubNav };
-
-// /* <li>
-//   <a href={subnav.path}>{subnav.title}</a>
-// </li> */

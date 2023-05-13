@@ -1,0 +1,86 @@
+.mycard {
+  min-width: 300px;
+  max-width: 280px;
+  color: white;
+  margin-left: 2%;
+  margin-right: 10%;
+
+}
+.card-imgwrapper {
+  height: 250px;
+  justify-content: center;
+  display: flex;
+}
+.mycard-img {
+  height: 90%;
+  width: 80%;
+  margin: auto 0;
+}
+
+.mycard-title {
+  color: black;
+}
+
+.mycard-description {
+  justify-content: left;
+  color: black;
+}
+
+.mycard-btn {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 1000px) and (min-width: 768px) {
+  .mycard {
+    min-width: 300px;
+    max-width: 280px;
+    color: white;
+    margin-left: 5%;
+    margin-right: 2%;
+  }
+}
+
+@media screen and (max-width: 1400px) and (min-width: 1000px) {
+  .mycard {
+    min-width: 300px;
+    max-width: 280px;
+    color: white;
+    margin-left: 1.2%;
+    margin-right: 0;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .card-imgwrapper {
+    height: 200px;
+    justify-content: center;
+    display: flex;
+  }
+  .mycard-btn {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  .mycard-title {
+    color: black;
+    font-size: 1rem;
+  }
+  .mycard-description {
+    justify-content: left;
+    color: black;
+    font-size: smaller;
+  }
+  .mycard {
+    min-width: 200px;
+    max-width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+    color: white;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+  }
+}
+/* margin: 50px; */
+/* margin-left: 0%;
+margin-right: 250px; */

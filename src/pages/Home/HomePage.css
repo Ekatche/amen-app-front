@@ -1,0 +1,19 @@
+.new-products {
+  display: flex;
+  align-items: center;
+  align-content: space-around;
+}
+
+.top-section {
+  margin-top: 20px;
+}
+
+.middle-section {
+  margin-top: 3rem;
+}
+
+
+.new-bloc {
+  display: flex;
+}
+

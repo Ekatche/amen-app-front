@@ -1,0 +1,55 @@
+
+{
+    "resources": [
+      {
+        "id":0,
+        "title": "Imge Parfume",
+        "link": "Go somewhere",
+        "imageUrl":  "./img/prod_3.png",
+        "description":"Some quick example text to build on the card title and make up the bulk of the card's content."
+      },
+      {
+        "id":1,
+        "title": "Welcome to the Labs",
+        "link": "Go somewhere",
+        "imageUrl": "./img/prod_1.png",
+        "description":"Some quick example text to build on the card title and make up the bulk of the card's content."
+      },
+      {
+        "id":2,
+        "title": "Some sort of third title",
+        "link": "Go somewhere",
+        "imageUrl":  "./img/prod_2.png",
+        "description":"Some quick example text to build on the card title and make up the bulk of the card's content."
+      },
+      {
+        "id":3,
+        "title": "A personal site perhaps?",
+        "link": "Go somewhere",
+        "imageUrl":"./img/prod_1.png",
+        "description":"Some quick example text to build on the card title and make up the bulk of the card's content."
+      },
+      {
+        "id":4,
+        "title": "Super item number five",
+        "link": "Go somewhere",
+        "imageUrl": "./img/prod_1.png",
+        "description":"Some quick example text to build on the card title and make up the bulk of the card's content."
+      },
+      {
+        "id":5,
+        "title": "Super item number six",
+        "link": "Go somewhere",
+        "imageUrl": "./img/prod_2.png",
+        "description":"Some quick example text to build on the card title and make up the bulk of the card's content."
+      },
+      {
+        "id":6,
+        "title": "Super item number seven",
+        "link": "Go somewhere",
+        "imageUrl": "./img/prod_3.png",
+        "description":"Some quick example text to build on the card title and make up the bulk of the card's content."
+      }
+    ]
+  }
+  

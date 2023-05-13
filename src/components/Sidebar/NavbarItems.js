@@ -142,18 +142,21 @@ export const navItems = [
         iconOpened: <RiIcons.RiArrowUpSFill />,
         subNav: [
           {
+            id:1,
             title: "Coffret Femme",
             path: "/",
             cName: "subnav-items",
             icon: "",
           },
           {
+            id:2,
             title: "Coffret Homme",
             path: "/",
             cName: "subnav-items",
             icon: "",
           },
           {
+            id:3,
             title: "Coffret Enfant",
             path: "/",
             cName: "subnav-items",
@@ -170,18 +173,21 @@ export const navItems = [
         iconOpened: <RiIcons.RiArrowUpSFill />,
         subNav: [
           {
+            id:1,
             title: "Promotions hommes",
             path: "/",
             cName: "subnav-items",
             icon: "",
           },
           {
+            id:2,
             title: "Promotions femmes",
             path: "/",
             cName: "subnav-items",
             icon: "",
           },
           {
+            id:3,
             title: "Promotions Enfant",
             path: "/",
             cName: "subnav-items",
