@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {BsPersonFillLock, BsPersonFillX } from "react-icons/bs";
+import { BsPersonFillLock, BsPersonFillX, BsPerson } from "react-icons/bs";
+import {MdOutlineManageAccounts} from "react-icons/md"
 import "./Button.css";
 
-function LoginButton() {
+export const LoginButton = () => {
   return (
     <>
-      <Link to="login">
+      <Link to="/login">
         <button className="cstmbtn">
           <BsPersonFillLock />
           <span> Compte </span>
@@ -14,19 +15,30 @@ function LoginButton() {
       </Link>
     </>
   );
-}
+};
 
-function LogoutButton() {
+export const LogoutButton = ({ logoutUser }) => {
   return (
     <>
       <Link>
-        <button className="cstmbtn">
+        <button onClick={logoutUser} className="cstmbtn">
           <BsPersonFillX />
           <span>Log out</span>
         </button>
       </Link>
     </>
   );
-}
+};
 
-export { LoginButton, LogoutButton}
+export const AccountButton = ({account}) => {
+  return (
+    <>
+      <Link to={"/account"}>
+        <button className="cstmbtn">
+          <BsPerson />
+          <span> Account</span>
+        </button>
+      </Link>
+    </>
+  );
+};

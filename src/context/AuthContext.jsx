@@ -120,9 +120,10 @@ export const AuthProvider = ({ children }) => {
         const response = await fetch('http://localhost:8000/api/user/logout/', {
             method: "Post",
             headers: {
-                "Authorization": `Bearer ${refresh}`,
+                "Authorization": `Bearer ${authTokens}`,
                 "Content-Type": "application/json"
             },
+            body: JSON.stringify({ refresh: `${refresh}` })
         })
 
         if (response.status === 200) {

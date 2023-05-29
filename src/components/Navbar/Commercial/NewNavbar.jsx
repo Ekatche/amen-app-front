@@ -1,13 +1,15 @@
 import { Link } from "react-router-dom";
-import React, { useContext, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useContext, useState, useEffect, useId } from "react";
+import { useNavigate  } from "react-router-dom";
 import AuthContext from "../../../context/AuthContext";
-import { navItems } from "../../Sidebar/NavbarItems";
+
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import { LogoutButton, LoginButton } from "../../Sidebar/Button";
+import { LogoutButton, LoginButton, AccountButton } from "../../Sidebar/Button";
+// nav items
+import { navItems } from "../NavbarItems";
 
 import "./Navbar.css";
 import amenlogo from "./../../../logo/logo_without_background_192.png";
@@ -27,7 +29,7 @@ const CustomNavbar = () => {
   const handleClose = () => setSidebar(false);
   const handleShow = () => setSidebar(true);
 
-  const Navigate = useNavigate();
+
 
   useEffect(() => {
     if (window.innerWidth < 1065) {
@@ -94,9 +96,16 @@ const CustomNavbar = () => {
               <div className="top-right">
                 <div className="mobile-header-item">
                   <Badge>
+                  {
+                    user ? 
+                    <a href="/account">
+                      <BsPerson size={"30px"} />
+                    </a>:
                     <a href="/login">
                       <BsPerson size={"30px"} />
                     </a>
+                  }
+                    
                   </Badge>
                 </div>
                 <div className="mobile-header-item">
@@ -124,15 +133,27 @@ const CustomNavbar = () => {
               <Offcanvas.Body>
                 <div>
                   {navItems.map((eachItems) => (
-                    <ul key = {eachItems.id} className={eachItems.sName}>
-                      <span className={"sidebar-title"}>{eachItems.title}</span>
+                    <ul
+                      key={eachItems.title}
+                      className={eachItems.sName}
+                      href={eachItems.path}
+                    >
+                      <span className={"sidebar-title"} href={eachItems.path}>
+                        {eachItems.title}
+                      </span>
                       {eachItems.items.map((items) => {
-                        return <SubMenu item={items} />;
+                        return <SubMenu item={items} key={items.title} />;
                       })}
                     </ul>
                   ))}
                 </div>
-                {user ? <LogoutButton /> : ""}
+                {user ? (
+                  <ButtonGroup className="navbar-btn">
+                    <LogoutButton />
+                  </ButtonGroup>
+                ) : (
+                  ""
+                )}
               </Offcanvas.Body>
             </Offcanvas>
           </div>
@@ -194,7 +215,10 @@ const CustomNavbar = () => {
                 </div>
                 <div className="header-item">
                   {user ? (
-                    <LogoutButton />
+                    <ButtonGroup className="navbar-btn">
+                      <LogoutButton logoutUser={logoutUser} />
+                      <AccountButton />
+                    </ButtonGroup>
                   ) : (
                     <ButtonGroup className="navbar-btn">
                       <LoginButton />
@@ -211,12 +235,15 @@ const CustomNavbar = () => {
                   if (cat.title === "Categories") {
                     return cat.items.map((subcat) => {
                       return (
-                        <li key={subcat.id}>
-                          <a href="/" className={"hover-item-li"}>
+                        <li key={subcat.title}>
+                          <a href={subcat.path} className={"hover-item-li"}>
                             {subcat.title}
                           </a>
-                          <ul key={subcat.id} className={"subnav-content is-dropdown-submenu "}>
-                            <DeskSubNav  item={subcat} />
+                          <ul
+                            key={subcat.id}
+                            className={"subnav-content is-dropdown-submenu "}
+                          >
+                            <DeskSubNav item={subcat} />
                           </ul>
                         </li>
                       );

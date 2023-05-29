@@ -10,6 +10,7 @@ import PersonalInformations from "../../components/User/PersonalInfo/PersonalInf
 import UserOrders from "../../components/User/Orders/UserOrders";
 import UserInvoices from "../../components/User/Invoices/UserInvoices";
 import UserLikes from "../../components/User/Likes/UserLikes";
+import { Usercart } from "../../components/User/ShoppingCart/Usercart";
 
 export default function UserAccount() {
   const [active, setActive] = useState("account_main");
@@ -67,18 +68,6 @@ export default function UserAccount() {
                 >
                   <a href="#" id="account_invoices">
                     Mes factures
-                  </a>
-                </div>
-                <div
-                  className={
-                    active === "account_basket"
-                      ? "row tab-sections selected"
-                      : "row tab-sections"
-                  }
-                  onClick={(event) => setActive(event.target.id)}
-                >
-                  <a href="#" id="account_basket">
-                    Mon panier
                   </a>
                 </div>
                 <div

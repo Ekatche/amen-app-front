@@ -4,7 +4,9 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { BsPerson } from "react-icons/bs";
 import * as RiIcons from "react-icons/ri";
 
+
 export const navItems = [
+  
   {
     id: 1,
     title: "Compte",
@@ -14,8 +16,8 @@ export const navItems = [
     items: [
       {
         id: 1,
-        title: "Me connecter / M'inscrire",
-        path: "./login",
+        title: "Mon Compte",
+        path: "/account",
         cName: "side-items",
         icon: <BsPerson size={"25px"} />,
         subNav: false,
@@ -23,7 +25,7 @@ export const navItems = [
       {
         id: 2,
         title: "Favoris",
-        path: "./",
+        path: "/",
         cName: "side-items",
         icon: <AiOutlineHeart size={"25px"} />,
         subNav: false,
@@ -31,7 +33,7 @@ export const navItems = [
       {
         id: 3,
         title: "Mes commandes",
-        path: "./",
+        path: "/",
         cName: "side-items",
         icon: <TfiPackage size={"23px"} />,
         subNav: false,
@@ -46,9 +48,9 @@ export const navItems = [
     sName: "sidebar-item",
     items: [
       {
-        id: 1,
+        id: 4,
         title: "Parfum femme",
-        path: "./",
+        path: "/femme",
         cName: "side-items",
         iconClosed: <RiIcons.RiArrowDownSFill />,
         iconOpened: <RiIcons.RiArrowUpSFill />,
@@ -77,29 +79,29 @@ export const navItems = [
         ],
       },
       {
-        id: 2,
+        id: 5,
         title: "Parfum homme",
-        path: "./",
+        path: "/homme",
         cName: "side-items",
         iconClosed: <RiIcons.RiArrowDownSFill />,
         iconOpened: <RiIcons.RiArrowUpSFill />,
         subNav: [
           {
-            id: 1,
+            id: 4,
             title: "Parfum Masculins",
             cName: "subnav-items",
             path: "/",
             icon: "",
           },
           {
-            id: 2,
+            id: 5,
             title: "Déodorant",
             cName: "subnav-items",
             path: "/",
             icon: "",
           },
           {
-            id: 3,
+            id: 6,
             title: "Nouveautés",
             cName: "subnav-items",
             path: "/",
@@ -108,24 +110,24 @@ export const navItems = [
         ],
       },
       {
-        id: 3,
+        id: 6,
         title: "Parfum enfants",
-        path: "./",
+        path: "/enfant",
         cName: "side-items",
         iconClosed: <RiIcons.RiArrowDownSFill />,
         iconOpened: <RiIcons.RiArrowUpSFill />,
         subNav: [
-          { id: 1, title: "Fille", cName: "subnav-items", path: "/", icon: "" },
+          { id: 7, title: "Fille", cName: "subnav-items", path: "/", icon: "" },
           {
-            id: 2,
+            id: 8,
             title: "Garçon",
             cName: "subnav-items",
             path: "/",
             icon: "",
           },
-          { id: 3, title: "Bébé", cName: "subnav-items", path: "/", icon: "" },
+          { id: 9, title: "Bébé", cName: "subnav-items", path: "/", icon: "" },
           {
-            id: 4,
+            id: 10,
             title: "Nouveautés",
             cName: "subnav-items",
             path: "/",
@@ -134,7 +136,7 @@ export const navItems = [
         ],
       },
       {
-        id: 4,
+        id: 7,
         title: "Coffrets",
         path: "./",
         cName: "side-items",
@@ -142,21 +144,21 @@ export const navItems = [
         iconOpened: <RiIcons.RiArrowUpSFill />,
         subNav: [
           {
-            id:1,
+            id:11,
             title: "Coffret Femme",
             path: "/",
             cName: "subnav-items",
             icon: "",
           },
           {
-            id:2,
+            id:12,
             title: "Coffret Homme",
             path: "/",
             cName: "subnav-items",
             icon: "",
           },
           {
-            id:3,
+            id:13,
             title: "Coffret Enfant",
             path: "/",
             cName: "subnav-items",
@@ -165,7 +167,7 @@ export const navItems = [
         ],
       },
       {
-        id: 5,
+        id: 8,
         title: "Promotion",
         path: "./",
         cName: "side-items",
@@ -173,21 +175,21 @@ export const navItems = [
         iconOpened: <RiIcons.RiArrowUpSFill />,
         subNav: [
           {
-            id:1,
+            id:14,
             title: "Promotions hommes",
             path: "/",
             cName: "subnav-items",
             icon: "",
           },
           {
-            id:2,
+            id:15,
             title: "Promotions femmes",
             path: "/",
             cName: "subnav-items",
             icon: "",
           },
           {
-            id:3,
+            id:16,
             title: "Promotions Enfant",
             path: "/",
             cName: "subnav-items",
@@ -205,7 +207,7 @@ export const navItems = [
     sName: "sidebar-item",
     items: [
       {
-        id: 1,
+        id: 9,
         title: "Aide et contact",
         path: "./",
         cName: "side-items",

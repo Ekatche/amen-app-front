@@ -24,9 +24,9 @@ const SubMenu = ({ item }) => {
       {!item.subNav
         ? ""
         : subnav &&
-          item.subNav.map((item, index) => {
+          item.subNav.map((item) => {
             return (
-              <Link to={item.path} key={index} className={item.cName}>
+              <Link to={item.path} key={item.title} className={item.cName}>
                 {item.icon}
                 <span>{item.title}</span>
               </Link>

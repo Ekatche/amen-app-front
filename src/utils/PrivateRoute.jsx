@@ -9,4 +9,12 @@ const PrivateBackofficeRoutes = () => {
   )
 }
 
+export const PrivateRoute = () => {
+  let { user } = useContext(AuthContext);
+  return (
+    user ? <Outlet /> : <Navigate to="/login"/>
+  )
+
+}
+
 export default PrivateBackofficeRoutes;

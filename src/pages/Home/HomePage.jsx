@@ -1,5 +1,4 @@
 import React, { useContext, useState, useEffect } from "react";
-import UserInfo from "../../components/My_account/myAccount";
 import AuthContext from "../../context/AuthContext";
 import HomeCarousel from "./Carousel";
 import "./HomePage.css";
@@ -56,7 +55,6 @@ const Home = () => {
 
   return (
     <>
-      {user ? <UserInfo user={user} /> : null}
       <div className="container top-section">
         <HomeCarousel />
       </div>
