@@ -181,7 +181,7 @@ const Home = () => {
           </Tab>
         </Tabs>
       </div>
-      <div className="container" style={{ "padding-top": "30px" }}>
+      <div className="container" style={{ "paddingTop": "30px" }}>
         <div
           style={{
             alignItems: "center",

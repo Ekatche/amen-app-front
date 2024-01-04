@@ -168,6 +168,37 @@ export const navItems = [
       },
       {
         id: 8,
+        title: "Diffuseurs",
+        path: "./",
+        cName: "side-items",
+        iconClosed: <RiIcons.RiArrowDownSFill />,
+        iconOpened: <RiIcons.RiArrowUpSFill />,
+        subNav: [
+          {
+            id:14,
+            title: "Diffuseurs Jardins",
+            path: "/",
+            cName: "subnav-items",
+            icon: "",
+          },
+          {
+            id:15,
+            title: "Diffuseurs Maisons",
+            path: "/",
+            cName: "subnav-items",
+            icon: "",
+          },
+          {
+            id:16,
+            title: "Diffuseurs Bain",
+            path: "/",
+            cName: "subnav-items",
+            icon: "",
+          },
+        ],
+      },
+      {
+        id: 8,
         title: "Promotion",
         path: "./",
         cName: "side-items",

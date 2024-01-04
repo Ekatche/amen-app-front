@@ -34,8 +34,7 @@ const Footer = () => {
                 <Image src={logoAmen} alt={"amenLogo"} width={150} />
               </h6>
               <p>
-                One Body, one Family, Our goal is to share a message of Life,
-                Faith, Courage and Ambition through the Love of Jesus Christ
+                Our goal is to share a message of Life, Hope, Faith, Courage and Ambition through the Love of Jesus Christ.
               </p>
             </MDBCol>
             <MDBCol md="3" lg="2" xl="2" className="mx-auto mb-4 pt-4">
